@@ -1,12 +1,19 @@
 <!-- src/views/HomePage.vue -->
 <template>
+  <DataLoader v-slot="{ dataPoints }">
     <div>
       <h1>{{ title }}</h1>
+      <MapView :dataPoints="dataPoints" />
     </div>
-  </template>
+  </DataLoader>
+</template>
   
-  <script setup>
-  import { ref } from 'vue';
-  const title = ref('Home Page');
-  </script>
+<script setup>
+import { ref } from 'vue';
+import DataLoader from '@/components/DataLoader.vue';
+import MapView from '@/components/MapView.vue';
+
+const title = ref('Home Page');
+
+</script>
   
