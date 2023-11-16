@@ -1,20 +1,14 @@
 <template>
   <div id="app">
     <TheNavbar/>
+    <DataLoader />
     <router-view/>
   </div>
 </template>
 
-<script>
+<script setup>
 import TheNavbar from './components/NavBar.vue';
-
-
-export default {
-  name: 'App',
-  components: {
-    TheNavbar
-  }
-};
+import DataLoader from './components/DataLoader.vue';
 </script>
 
 <style>
