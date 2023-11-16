@@ -11,6 +11,8 @@ Schema:
  - irwin_id (string) - Wildfire ID assigned by the Integrated Reporting of Wildland Fire Information (IRWIN) program. Introduced in 2014.
  - incident_name (string) - Colloquial name given to wildfire, such as Grizzly Creek Fire
 - burned_acreage (float) - Number of acres burned by the fire
+- latitude (float) - Latitude associated with the fire
+- longitude (float) - Longitude associated with the fire
 - ignition_year (YYYY) - Year in which the fire started
 - ignition_date (YYYY-MM-DD) - Date on which the fire started
 - geometry (GeoJSON polygon) - Region burned by the fire (only in `mtbs_incl_perimeters.geojson`)
