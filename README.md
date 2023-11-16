@@ -47,6 +47,12 @@ d3.json('PATH_TO/mtbs_incl_perimeters.geojson', data => {
 
 The data with perimeters is too large to be loaded into d3. If you want to use perimeter data on the front end, you would need to first select a smaller subset of the wildfires in Python or Node.
 
+## Git setup
+### LFS requirement
+```
+git lfs install
+```
+
 ## Project setup
 ```
 npm install
