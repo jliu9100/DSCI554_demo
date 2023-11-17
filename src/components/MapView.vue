@@ -17,15 +17,14 @@
 </template>
   
 <script setup>
-import { ref, defineProps, computed, onMounted } from 'vue';
+import { ref, defineProps, computed, watchEffect } from 'vue';
 import { LMap, LTileLayer, LMarker, LIcon, LPopup } from '@vue-leaflet/vue-leaflet';
 import 'leaflet/dist/leaflet.css';
 const props = defineProps({
   dataPoints: Array
 });
-
-const minSize = 20;
-const maxSize = 50;
+const minSize = 10;
+const maxSize = 40;
 const minAcreage = ref(0);
 const maxAcreage = ref(0);
 
@@ -40,7 +39,7 @@ const updateAcreageBounds = () => {
   maxAcreage.value = Math.max(...acreages);
 };
 
-onMounted(updateAcreageBounds);
+watchEffect(updateAcreageBounds);
 
 const calculateIconSize = (acreage) => {
   const sizeRatio = (acreage - minAcreage.value) / (maxAcreage.value - minAcreage.value);

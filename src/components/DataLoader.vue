@@ -1,18 +1,23 @@
 <!-- src/components/DataLoader.vue -->
 <template>
     <div>
-        <slot :dataPoints="dataPointsRef"></slot>
+        <slot></slot>
     </div>
 </template>
   
 <script setup>
-import { ref } from 'vue';
+import { ref, defineEmits } from 'vue';
 import * as d3 from 'd3';
+const emit = defineEmits(['update:data']);
+
 const loadData = async () => {
     try {
+
         const rawData = await d3.json('data/mtbs.json');
         // first 2000 data points
         const keys = Object.keys(rawData.mtbs_id).slice(0, 2000);
+        // all data points
+        // const keys = Object.keys(rawData.mtbs_id);
 
         const dataPoints = keys.map(index => ({
             id: parseInt(index),
@@ -21,6 +26,8 @@ const loadData = async () => {
             lng: parseFloat(rawData.longitude[index]),
             acreage: parseFloat(rawData.burned_acreage[index]),
             date: rawData.ignition_date[index],
+            year: parseInt(rawData.ignition_year[index]),
+            month: parseInt(rawData.ignition_date[index].split('-')[1]),
         })).filter(dp => {
             // Northern California region
             const isNorth = dp.lat >= 39 && dp.lat <= 42 && dp.lng >= -124 && dp.lng <= -120;
@@ -31,7 +38,6 @@ const loadData = async () => {
 
             return isNorth || isCentral || isSouth;
         });
-
         return dataPoints;
     } catch (error) {
         console.error("Error loading data: ", error);
@@ -43,6 +49,7 @@ const dataPointsRef = ref([]);
 
 loadData().then(dataPoints => {
     dataPointsRef.value = dataPoints;
+    emit('update:data', dataPoints);
 });
 
 </script>
