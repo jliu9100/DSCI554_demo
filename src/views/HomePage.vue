@@ -60,7 +60,6 @@ const updateYear = (newYear) => {
   top: 1rem;
   left: 3rem;
   z-index: 1000;
-  /* 确保标题在地图之上 */
 }
 
 .year-selector {
@@ -72,10 +71,8 @@ const updateYear = (newYear) => {
 
 .year-selector .el-button {
   margin: 0 10px;
-  /* 为按钮添加一些水平间距 */
 }
 
 .year-selector .el-select {
   width: 120px;
-  /* 调整下拉选择框的宽度 */
 }</style>

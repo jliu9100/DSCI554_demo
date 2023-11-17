@@ -60,7 +60,6 @@ const enrichedDataPoints = computed(() =>
 <style>
 .map-container {
   height: 400px;
-  /* 或者其他你想要的高度 */
 }
 </style>
   
