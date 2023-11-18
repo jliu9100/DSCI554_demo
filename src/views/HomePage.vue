@@ -6,6 +6,8 @@
         <h1 class="map-title">{{ title }}</h1>
         <YearSelector :available-years="availableYears" :initial-year="currentYear" @update:year="updateYear" />
         <MapView :dataPoints="filteredDataPoints" />
+        <h3 class="chart-title">ANNUAL NUMBER OF FIRES AND ACRES BURNED</h3>
+        <HomePageBarChart :dataPoints="dataPoints" />
       </div>
     </div>
   </DataLoader>
@@ -16,6 +18,7 @@ import { ref, computed, onMounted } from 'vue';
 import DataLoader from '@/components/DataLoader.vue';
 import MapView from '@/components/MapView.vue';
 import YearSelector from '@/components/YearSelector.vue';
+import HomePageBarChart from '@/components/HomePageBarChart.vue';
 
 const title = ref('Home Page');
 const currentYear = ref(new Date().getFullYear());
