@@ -8,6 +8,7 @@
         <MapView :dataPoints="filteredDataPoints" />
         <h3 class="chart-title">ANNUAL NUMBER OF FIRES AND ACRES BURNED</h3>
         <HomePageBarChart :dataPoints="dataPoints" />
+        <HomePageHeatMap :dataPoints="dataPoints" />
       </div>
     </div>
   </DataLoader>
@@ -19,6 +20,7 @@ import DataLoader from '@/components/DataLoader.vue';
 import MapView from '@/components/MapView.vue';
 import YearSelector from '@/components/YearSelector.vue';
 import HomePageBarChart from '@/components/HomePageBarChart.vue';
+import HomePageHeatMap from '@/components/HomePageHeatMap.vue';
 
 const title = ref('Home Page');
 const currentYear = ref(new Date().getFullYear());
@@ -78,4 +80,15 @@ const updateYear = (newYear) => {
 
 .year-selector .el-select {
   width: 120px;
-}</style>
+}
+
+.home-page-heat-map {
+  position: absolute;
+  bottom: 0;
+  left: 0; 
+  z-index: 1000; 
+  width: 40%;
+}
+
+
+</style>

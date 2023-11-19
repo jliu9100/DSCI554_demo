@@ -43,7 +43,6 @@ const createChart = (data) => {
                 count: values.length
             };
         });
-    console.log(dataByYear);
 
     const margin = { top: 10, right: 70, bottom: 40, left: 60 }
     const width = chartContainer.value.clientWidth - margin.left - margin.right; // Full width of the container
@@ -115,7 +114,7 @@ const createChart = (data) => {
         .attr("y", d => yBar(d.count))
         .attr("width", x.bandwidth())
         .attr("height", d => height - yBar(d.count))
-        .attr("fill", "#69b3a2");
+        .attr("fill", "var(--theme-color)");
 
     // Line for the total acreage
     const line = d3.line()

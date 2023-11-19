@@ -1,11 +1,11 @@
 <!-- YearSelector.vue -->
 <template>
   <div class="year-selector">
-    <el-button @click="changeYear(-1)" :icon="ArrowLeft" :disabled="isYearOutOfRange(selectedYear, 'left')"></el-button>
+    <el-button class="custom-button" @click="changeYear(-1)" :icon="ArrowLeft" :disabled="isYearOutOfRange(selectedYear, 'left')"></el-button>
 
-    <el-date-picker v-model="selectedYear" style="width: 8rem;" type="year" placeholder="Select year"
+    <el-date-picker class="custom-picker" v-model="selectedYear" style="width: 8rem;" type="year" placeholder="Select year"
       :disabledDate="disabledDate" @change="onYearChange"></el-date-picker>
-    <el-button @click="changeYear(1)" :icon="ArrowRight" :disabled="isYearOutOfRange(selectedYear, 'right')"></el-button>
+    <el-button class="custom-button" @click="changeYear(1)" :icon="ArrowRight" :disabled="isYearOutOfRange(selectedYear, 'right')"></el-button>
   </div>
 </template>
   
@@ -53,4 +53,7 @@ const onYearChange = () => {
 
 </script>
   
-<style scoped></style>
+<style scoped>
+
+
+</style>
