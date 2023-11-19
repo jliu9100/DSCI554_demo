@@ -1,6 +1,6 @@
 <template>
   <div class="map-container">
-    <l-map :zoom="zoom" :min-zoom="zoom" :max-zoom="zoom + 4" :center="center" style="height: 100%;">
+    <l-map :zoom="zoom" :min-zoom="zoom" :max-zoom="zoom + 4" :center="center" style="height: 100%; background-color: black;">
       <l-tile-layer :url="tileUrl" :attribution="attribution" />
       <l-marker v-for="dataPoint in enrichedDataPoints" :key="dataPoint.id" :lat-lng="[dataPoint.lat, dataPoint.lng]"
       >
