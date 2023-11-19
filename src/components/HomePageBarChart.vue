@@ -85,25 +85,25 @@ const createChart = (data) => {
     svg.value.append("g")
         .call(d3.axisLeft(yBar));
 
-        svg.value.append("text")
-    .attr("transform", "rotate(-90)")
-    .attr("y", 0 - margin.left)
-    .attr("x", 0 - (height / 2))
-    .attr("dy", "1em")
-    .style("text-anchor", "middle")
-    .text("Number of Fires"); 
+    svg.value.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - margin.left)
+        .attr("x", 0 - (height / 2))
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .text("Number of Fires");
 
     svg.value.append("g")
         .attr("transform", `translate(${width},0)`)
         .call(d3.axisRight(yLine).tickFormat(d => `${d / 1e6}M`)); // Convert to millions with "M" suffix
 
-        svg.value.append("text")
-    .attr("transform", "rotate(-90)")
-    .attr("y", width + margin.right)
-    .attr("x", 0 - (height / 2))
-    .attr("dy", "-0.8em")
-    .style("text-anchor", "middle")
-    .text("Acres Burned");
+    svg.value.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", width + margin.right)
+        .attr("x", 0 - (height / 2))
+        .attr("dy", "-0.8em")
+        .style("text-anchor", "middle")
+        .text("Acres Burned");
 
     // Bars
     svg.value.selectAll(".bar")
@@ -126,7 +126,39 @@ const createChart = (data) => {
         .attr("fill", "none")
         .attr("stroke", "steelblue")
         .attr("stroke-width", 1.5)
-        .attr("d", line);
+        .attr("d", line)
+        .attr("stroke", "var(--theme-color-deep)");
+
+    const legend = svg.value.append("g")
+        .attr("transform", `translate(${width - 200}, ${margin.top})`);
+    legend.append("line")
+        .attr("x1", 0)
+        .attr("x2", 20)
+        .attr("y1", 0)
+        .attr("y2", 0)
+        .attr("stroke", "steelblue")
+        .attr("stroke-width", 1.5)
+        .attr("stroke", "var(--theme-color-deep)")
+        ;
+
+    legend.append("text")
+        .attr("x", 25)
+        .attr("y", 0)
+        .attr("dy", "0.32em") // Vertically align with the line
+        .text("Acres Burned");
+
+    legend.append("rect")
+        .attr("x", 0)
+        .attr("y", 20)
+        .attr("width", 20)
+        .attr("height", 10)
+        .attr("fill", "var(--theme-color)");
+
+    legend.append("text")
+        .attr("x", 25)
+        .attr("y", 25)
+        .attr("dy", "0.32em") // Vertically align with the bar
+        .text("Number of Fires");
 };
 </script>
   
