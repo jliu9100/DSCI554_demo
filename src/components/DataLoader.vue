@@ -14,10 +14,10 @@ const loadData = async () => {
     try {
 
         const rawData = await d3.json('data/mtbs.json');
-        // first 2000 data points
-        const keys = Object.keys(rawData.mtbs_id).slice(0, 5000);
+        // first 10000 data points
+        // const keys = Object.keys(rawData.mtbs_id).slice(0, 10000);
         // all data points
-        // const keys = Object.keys(rawData.mtbs_id);
+        const keys = Object.keys(rawData.mtbs_id);
 
         const dataPoints = keys.map(index => ({
             id: parseInt(index),

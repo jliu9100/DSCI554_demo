@@ -23,14 +23,13 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-    window.removeEventListener('resize', handleResize); // Clean up resize listener
+    window.removeEventListener('resize', handleResize); 
 });
 
 const handleResize = () => {
     if (svg.value) {
-        // Remove the existing SVG to redraw it
         svg.value.remove();
-        createChart(props.dataPoints); // Redraw chart based on new size
+        createChart(props.dataPoints); 
     }
 };
 
@@ -45,18 +44,16 @@ const createChart = (data) => {
         });
 
     const margin = { top: 10, right: 70, bottom: 40, left: 60 }
-    const width = chartContainer.value.clientWidth - margin.left - margin.right; // Full width of the container
-    const height = 200; // Example height or responsive height
+    const width = chartContainer.value.clientWidth - margin.left - margin.right; 
+    const height = 200; 
     d3.select(chartContainer.value).selectAll("*").remove();
 
-    // Append the svg object to the div called 'chartContainer'
     svg.value = d3.select(chartContainer.value)
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
         .attr("transform", `translate(${margin.left},${margin.top})`);
-    // .attr("viewBox", `0 0 ${width} ${height}`)
 
     // X axis
     const x = d3.scaleBand()
@@ -73,7 +70,7 @@ const createChart = (data) => {
         .attr("x", -10)
         .attr("y", -3);
 
-    // Add Y axis
+    // Y axis
     const yBar = d3.scaleLinear()
         .domain([0, d3.max(dataByYear, d => d.count) + 10])
         .range([height, 0]);
@@ -95,7 +92,7 @@ const createChart = (data) => {
 
     svg.value.append("g")
         .attr("transform", `translate(${width},0)`)
-        .call(d3.axisRight(yLine).tickFormat(d => `${d / 1e6}M`)); // Convert to millions with "M" suffix
+        .call(d3.axisRight(yLine).tickFormat(d => `${d / 1e6}M`)); 
 
     svg.value.append("text")
         .attr("transform", "rotate(-90)")
@@ -116,9 +113,8 @@ const createChart = (data) => {
         .attr("height", d => height - yBar(d.count))
         .attr("fill", "var(--theme-color)");
 
-    // Line for the total acreage
     const line = d3.line()
-        .x(d => x(d.year) + x.bandwidth() / 2) // Center the line in the band
+        .x(d => x(d.year) + x.bandwidth() / 2) 
         .y(d => yLine(d.totalAcreage));
 
     svg.value.append("path")
@@ -144,7 +140,7 @@ const createChart = (data) => {
     legend.append("text")
         .attr("x", 25)
         .attr("y", 0)
-        .attr("dy", "0.32em") // Vertically align with the line
+        .attr("dy", "0.32em") 
         .text("Acres Burned");
 
     legend.append("rect")
@@ -157,14 +153,13 @@ const createChart = (data) => {
     legend.append("text")
         .attr("x", 25)
         .attr("y", 25)
-        .attr("dy", "0.32em") // Vertically align with the bar
+        .attr("dy", "0.32em") 
         .text("Number of Fires");
 };
 </script>
   
 <style scoped>
 .chart-container {
-    /* Adjust styles as needed */
     width: 100%;
     height: 500px;
 }
