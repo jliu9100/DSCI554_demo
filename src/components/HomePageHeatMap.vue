@@ -34,7 +34,6 @@ const handleResize = () => {
 };
 
 const createHeatMap = (data) => {
-    // ... previous setup code ...
     const countsByYearMonth = d3.rollups(data,
         v => v.length, // This function counts the number of entries for each group
         d => d.year, d => d.month) // Grouping by year then by month
@@ -58,14 +57,12 @@ const createHeatMap = (data) => {
         .attr('height', height + margin.top + margin.bottom)
         .append('g')
         .attr('transform', `translate(${margin.left},${margin.top})`);
-
-
-    // Scales for the x-axis and y-axis
+        
     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
     const x = d3.scaleBand()
         .range([0, width])
-        .domain(monthNames) // Use month names instead of numbers
+        .domain(monthNames) 
         .padding(0.05);
 
     svg.value.append("g")
@@ -88,14 +85,13 @@ const createHeatMap = (data) => {
         .style("text-anchor", "start")
         .text("Year");
 
-    // Color scale: more fires -> darker color
     const colorScale = d3.scaleSequential(d3.interpolateInferno)
         .domain([0, d3.max(countsByYearMonth, d => d3.max(d.months.values()))])
-        .range(["#00BFFF", "purple"]);
+        .range(["orange", "red"]);
 
     const sizeScale = d3.scaleLinear()
         .domain([0, d3.max(countsByYearMonth, d => d3.max(d.months.values()))])
-        .range([0, y.bandwidth()]);
+        .range([0, y.bandwidth() / 2]);
 
     // Append the squares
     countsByYearMonth.forEach(yearEntry => {

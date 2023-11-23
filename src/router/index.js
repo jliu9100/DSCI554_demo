@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../views/HomePage.vue';
-import Page1 from '../views/Page1.vue';
+import SubPage1 from '../views/SubPage1.vue';
 import Page2 from '../views/Page2.vue';
 import Page3 from '../views/Page3.vue';
 import Page4 from '../views/Page4.vue';
@@ -16,7 +16,7 @@ const router = createRouter({
         {
             path: '/page1',
             name: 'PageWOName1',
-            component: Page1
+            component: SubPage1
         },
         {
             path: '/page2',

@@ -22,24 +22,29 @@ import YearSelector from '@/components/YearSelector.vue';
 import HomePageBarChart from '@/components/HomePageBarChart.vue';
 import HomePageHeatMap from '@/components/HomePageHeatMap.vue';
 
-const title = ref('Home Page');
+const title = ref('CALIFORNIA WILDFIRES');
 const currentYear = ref(new Date().getFullYear());
 onMounted(() => {
   const storedYear = sessionStorage.getItem('selectedYear');
   if (storedYear) {
     currentYear.value = parseInt(storedYear, 10);
   }
+  
 });
 const startYear = 1985;
-const endYear = 2024;
+const endYear = 2023;
 const availableYears = ref([...Array(endYear - startYear + 1)].map((_, i) => i + startYear));
 
 const dataPoints = ref([]);
 const isLoading = ref(true);
+const firstLoad = ref(true);
 
 const handleDataUpdate = (updatedData) => {
   dataPoints.value = updatedData;
   isLoading.value = false;
+  if (firstLoad.value) {
+    firstLoad.value = false;
+  }
 };
 
 const filteredDataPoints = computed(() => {
