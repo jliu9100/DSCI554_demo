@@ -4,8 +4,8 @@
     <div class="map-container" v-loading.fullscreen.lock="isLoading">
       <div v-if="dataPoints && dataPoints.length">
         <h1 class="map-title">{{ title }}</h1>
-        <YearSelector :available-years="availableYears" :initial-year="currentYear" @update:year="updateYear" />
-        <MapView :dataPoints="filteredDataPoints" />
+        <YearSelector :initial-year="currentYear" :initialMonth="currentMonth" @update:yearMonth="updateYearMonth" />
+        <MapView :dataPoints="filteredDataPoints"/>
         <h3 class="chart-title">ANNUAL NUMBER OF FIRES AND ACRES BURNED</h3>
         <HomePageBarChart :dataPoints="dataPoints" />
         <HomePageHeatMap :dataPoints="dataPoints" />
@@ -24,16 +24,18 @@ import HomePageHeatMap from '@/components/HomePageHeatMap.vue';
 
 const title = ref('CALIFORNIA WILDFIRES');
 const currentYear = ref(new Date().getFullYear());
+const currentMonth = ref(new Date().getMonth() + 1);
 onMounted(() => {
   const storedYear = sessionStorage.getItem('selectedYear');
-  if (storedYear) {
+  const storedMonth = sessionStorage.getItem('selectedMonth');
+  if (storedYear && storedMonth) {
     currentYear.value = parseInt(storedYear, 10);
+    currentMonth.value = parseInt(storedMonth, 10);
   }
   
 });
-const startYear = 1985;
-const endYear = 2023;
-const availableYears = ref([...Array(endYear - startYear + 1)].map((_, i) => i + startYear));
+// const startYear = 1985;
+// const endYear = 2023;
 
 const dataPoints = ref([]);
 const isLoading = ref(true);
@@ -48,12 +50,16 @@ const handleDataUpdate = (updatedData) => {
 };
 
 const filteredDataPoints = computed(() => {
-  return dataPoints.value.filter(dp => dp.year === currentYear.value);
+  return dataPoints.value.filter(dp => dp.year === currentYear.value && dp.month === currentMonth.value);
 });
 
-const updateYear = (newYear) => {
-  currentYear.value = newYear;
-  sessionStorage.setItem('selectedYear', newYear);
+const updateYearMonth = (yearMonth) => {
+  const { year, month } = yearMonth;
+  console.log("updateYearMonth: ", year, month);
+  currentYear.value = year;
+  currentMonth.value = month;
+  sessionStorage.setItem('selectedYear', year);
+  sessionStorage.setItem('selectedMonth', month);
 };
 
 

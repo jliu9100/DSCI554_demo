@@ -23,13 +23,13 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-    window.removeEventListener('resize', handleResize); 
+    window.removeEventListener('resize', handleResize);
 });
 
 const handleResize = () => {
     if (svg.value) {
         svg.value.remove();
-        createChart(props.dataPoints); 
+        createChart(props.dataPoints);
     }
 };
 
@@ -43,9 +43,9 @@ const createChart = (data) => {
             };
         });
 
-    const margin = { top: 10, right: 70, bottom: 40, left: 60 }
-    const width = chartContainer.value.clientWidth - margin.left - margin.right; 
-    const height = 200; 
+    const margin = { top: 30, right: 70, bottom: 40, left: 60 }
+    const width = chartContainer.value.clientWidth - margin.left - margin.right;
+    const height = 200;
     d3.select(chartContainer.value).selectAll("*").remove();
 
     svg.value = d3.select(chartContainer.value)
@@ -92,7 +92,7 @@ const createChart = (data) => {
 
     svg.value.append("g")
         .attr("transform", `translate(${width},0)`)
-        .call(d3.axisRight(yLine).tickFormat(d => `${d / 1e6}M`)); 
+        .call(d3.axisRight(yLine).tickFormat(d => `${d / 1e6}M`));
 
     svg.value.append("text")
         .attr("transform", "rotate(-90)")
@@ -100,7 +100,7 @@ const createChart = (data) => {
         .attr("x", 0 - (height / 2))
         .attr("dy", "-0.8em")
         .style("text-anchor", "middle")
-        .text("Acres Burned");
+        .text("Cumulative Fire Size(level)");
 
     // Bars
     svg.value.selectAll(".bar")
@@ -113,8 +113,19 @@ const createChart = (data) => {
         .attr("height", d => height - yBar(d.count))
         .attr("fill", "var(--theme-color)");
 
+    svg.value.selectAll(".bar-text")
+        .data(dataByYear)
+        .join("text")
+        .attr("class", "bar-text")
+        .attr("x", d => x(d.year) + x.bandwidth() / 2) // 将文本定位在条形图的中心
+        .attr("y", d => yBar(d.count) - 5) // 将文本放置在条形图的上方，这里的 -5 是一个小的偏移量
+        .attr("text-anchor", "middle") // 居中对齐文本
+        .text(d => d.count) // 设置要显示的文本
+        .attr("fill", "black") // 设置文本颜色
+        .attr("font-size", "10px"); // 设置字体大小
+        
     const line = d3.line()
-        .x(d => x(d.year) + x.bandwidth() / 2) 
+        .x(d => x(d.year) + x.bandwidth() / 2)
         .y(d => yLine(d.totalAcreage));
 
     svg.value.append("path")
@@ -126,7 +137,7 @@ const createChart = (data) => {
         .attr("stroke", "var(--theme-color-deep)");
 
     const legend = svg.value.append("g")
-        .attr("transform", `translate(${width - 200}, ${margin.top})`);
+        .attr("transform", `translate(${width - 220}, ${0})`);
     legend.append("line")
         .attr("x1", 0)
         .attr("x2", 20)
@@ -140,8 +151,8 @@ const createChart = (data) => {
     legend.append("text")
         .attr("x", 25)
         .attr("y", 0)
-        .attr("dy", "0.32em") 
-        .text("Acres Burned");
+        .attr("dy", "0.32em")
+        .text("Cumulative Fire Size(level)");
 
     legend.append("rect")
         .attr("x", 0)
@@ -153,7 +164,7 @@ const createChart = (data) => {
     legend.append("text")
         .attr("x", 25)
         .attr("y", 25)
-        .attr("dy", "0.32em") 
+        .attr("dy", "0.32em")
         .text("Number of Fires");
 };
 </script>

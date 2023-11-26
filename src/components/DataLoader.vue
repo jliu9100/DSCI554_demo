@@ -13,22 +13,29 @@ const emit = defineEmits(['update:data']);
 const loadData = async () => {
     try {
 
-        const rawData = await d3.json('data/mtbs.json');
+        const rawData = await d3.json('data/CA_Fires.json');
         // first 10000 data points
-        // const keys = Object.keys(rawData.mtbs_id).slice(0, 10000);
+        const keys = rawData.slice(0, 10000);
         // all data points
-        const keys = Object.keys(rawData.mtbs_id);
+        // const keys = rawData.slice(0, 1000);
+        // const keys = rawData;
 
-        const dataPoints = keys.map(index => ({
-            id: parseInt(index),
-            name: rawData.incident_name[index],
-            lat: parseFloat(rawData.latitude[index]),
-            lng: parseFloat(rawData.longitude[index]),
-            acreage: parseFloat(rawData.burned_acreage[index]),
-            date: rawData.ignition_date[index],
-            year: parseInt(rawData.ignition_year[index]),
-            month: parseInt(rawData.ignition_date[index].split('-')[1]),
-        })).filter(dp => {
+        const dataPoints = keys.map(data => {
+            const date = new Date(data.ignition_year, 0); // 创建一个日期对象，设置为当年的1月1日
+            date.setDate(date.getDate() + data.ignition_day - 1); // 加上年中的天数
+            const month = date.getMonth() + 1; // getMonth() 返回的月份是从0开始计数的，所以需要加1
+            return {
+                id: data.oid,
+                name: data.cause_description,
+                lat: parseFloat(data.latitude),
+                lng: parseFloat(data.longitude),
+                acreage: parseFloat(data.fire_size),
+                date: data.ignition_year,
+                year: parseInt(data.ignition_year),
+                month: month,
+                county: data.county
+            }
+        }).filter(dp => {
             // Northern California region
             const isNorth = dp.lat >= 39 && dp.lat <= 42 && dp.lng >= -124 && dp.lng <= -120;
             // Central California region
