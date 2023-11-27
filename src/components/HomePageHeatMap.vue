@@ -87,7 +87,7 @@ const createHeatMap = (data) => {
 
     const colorScale = d3.scaleSequential(d3.interpolateInferno)
         .domain([0, d3.max(countsByYearMonth, d => d3.max(d.months.values()))])
-        .range(["orange", "red"]);
+        .range(["orange", "Crimson"]);
 
     const sizeScale = d3.scaleLinear()
         .domain([0, d3.max(countsByYearMonth, d => d3.max(d.months.values()))])

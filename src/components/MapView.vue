@@ -1,12 +1,12 @@
 <template>
   <div class="map-container">
-    <l-map :zoom="zoom" :min-zoom="zoom" :max-zoom="zoom + 4" :center="center" style="height: 100%; background-color: black;">
+    <l-map :zoom="zoom" :min-zoom="zoom" :max-zoom="zoom + 4" :center="center" style="height: 100%;">
       <l-tile-layer :url="tileUrl" :attribution="attribution" />
       <l-marker v-for="dataPoint in enrichedDataPoints" :key="dataPoint.id" :lat-lng="[dataPoint.lat, dataPoint.lng]"
       >
         <l-icon :icon-size="[dataPoint.iconSize,dataPoint.iconSize]"  icon-url="fire.png">
         </l-icon>
-        <l-popup :content="dataPoint.name+' '+dataPoint.date+' '+dataPoint.lat+','+dataPoint.lng">
+        <l-popup :content="'Cause: '+dataPoint.name+'; Fire Size Level: '+dataPoint.acreage">
         </l-popup>
       </l-marker>
     </l-map>

@@ -1,24 +1,63 @@
 <template>
-    <div ref="californiaMap" class="map-container"></div>
+    <div ref="californiaMap"></div>
 </template>
 
 <script setup>
 import * as d3 from 'd3';
-import { onMounted, ref, defineProps } from 'vue';
+
+import { onMounted, ref, defineProps, defineEmits, onUnmounted,watch } from 'vue';
 
 const props = defineProps({
-    dataPoints: Array
+    dataPoints: Array,
+    mapType: String,
+    selectedCounty: String
 });
 
+const emit = defineEmits(['loading', 'loaded']);
 const californiaMap = ref(null);
+let debounceTimer;
+
+function debounce(func, delay) {
+    return function () {
+        const context = this;
+        const args = arguments;
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => func.apply(context, args), delay);
+    }
+}
 
 onMounted(() => {
     drawMap();
+    const handleResizeDebounced = debounce(handleResize, 500);
+    window.addEventListener('resize', handleResizeDebounced);
+
+    watch(() => props.selectedCounty, (newVal, oldVal) => {
+        if (newVal !== oldVal) {
+            handleResize();
+        }
+    });
 });
 
+onUnmounted(() => {
+    window.removeEventListener('resize', handleResize);
+});
+
+function handleResize() {
+    if (!californiaMap.value) {
+        return;
+    }
+    d3.select(californiaMap.value).select('svg').remove();
+    drawMap();
+}
+
 async function drawMap() {
-    const width = californiaMap.value.clientWidth / 2;
-    const height = 700;
+    emit('loading');
+    if (!californiaMap.value) {
+        return;
+    }
+    const margin = { top: 20, right: 30, bottom: 30, left: 30 };
+    const width = californiaMap.value.clientWidth - margin.left - margin.right || 500;
+    const height = californiaMap.value.clientWidth + margin.top + margin.bottom || 500;
 
     const svg = d3.select(californiaMap.value)
         .append('svg')
@@ -27,33 +66,62 @@ async function drawMap() {
 
     const projection = d3.geoMercator()
         .center([-120, 37])
-        .scale(2000)
+        .scale(4 * width)
         .translate([width / 2, height / 2]);
     const path = d3.geoPath().projection(projection);
     const geojsonData = await d3.json('data/CaliforniaCountyBoundaries.geojson');
 
-    let acreageByCounty;
-    const cachedData = sessionStorage.getItem("acreageByCounty");
+    let dataByCounty;
+
+    const cachedData = props.mapType === 'sum' ? sessionStorage.getItem("acreageByCounty") : sessionStorage.getItem("countByCounty");
     if (cachedData) {
-        acreageByCounty = JSON.parse(cachedData);
+        dataByCounty = JSON.parse(cachedData);
     } else {
         try {
-            acreageByCounty = await d3.json('data/acreageByCounty.json');
-            sessionStorage.setItem("acreageByCounty", JSON.stringify(acreageByCounty));
-        } catch (error) {
-            acreageByCounty = {};
-            for (const point of props.dataPoints) {
-                const county = getCountyFromLatLon(point.lat, point.lng, geojsonData);
-                if (county) {
-                    acreageByCounty[county] = (acreageByCounty[county] || 0) + point.acreage;
-                }
+            if (props.mapType === 'sum') {
+                dataByCounty = await d3.json('data/acreageByCounty.json');
+                sessionStorage.setItem("acreageByCounty", JSON.stringify(dataByCounty));
+            } else {
+                dataByCounty = await d3.json('data/countByCounty.json');
+                sessionStorage.setItem("countByCounty", JSON.stringify(dataByCounty));
             }
-            sessionStorage.setItem("acreageByCounty", JSON.stringify(acreageByCounty));
+
+
+        } catch (error) {
+            dataByCounty = {};
+            if (props.mapType === 'sum') {
+                for (const point of props.dataPoints) {
+                    if (point.county) {
+                        dataByCounty[point.county] = (dataByCounty[point.county] || 0) + point.acreage;
+                        continue;
+                    }
+                    const county = getCountyFromLatLon(point.lat, point.lng, geojsonData);
+                    if (county) {
+                        dataByCounty[county] = (dataByCounty[county] || 0) + point.acreage;
+                    }
+                }
+                sessionStorage.setItem("acreageByCounty", JSON.stringify(dataByCounty));
+            } else {
+                for (const point of props.dataPoints) {
+                    if (point.county) {
+                        dataByCounty[point.county] = (dataByCounty[point.county] || 0) + 1;
+                        continue;
+                    }
+                    const county = getCountyFromLatLon(point.lat, point.lng, geojsonData);
+                    if (county) {
+                        dataByCounty[county] = (dataByCounty[county] || 0) + 1;
+                    }
+                }
+                sessionStorage.setItem("countByCounty", JSON.stringify(dataByCounty));
+            }
+
+
         }
     }
-    const dataRange = d3.extent(Object.values(acreageByCounty))
-    const colorScale = d3.scaleSequential(d3.interpolateReds)
-        .domain(dataRange);
+    const dataRange = d3.extent(Object.values(dataByCounty))
+    const colorScale = props.mapType === 'sum' ? d3.scaleSequentialLog(d3.interpolateReds).domain(dataRange).base(1000) : d3.scaleSequential(d3.interpolateOranges).domain(dataRange);
+
+
 
     svg.selectAll("path")
         .data(geojsonData.features)
@@ -62,22 +130,22 @@ async function drawMap() {
         .attr("d", path)
         .attr("fill", d => {
             const countyName = d.properties.CountyName;
-            const acreage = acreageByCounty[countyName] || 0;
+            const acreage = dataByCounty[countyName] || 0;
             return colorScale(acreage);
         })
         .attr("stroke", "#333")
         .attr("stroke-width", 1);
 
-    const legendWidth = 300;
+    const legendWidth = width - margin.left - margin.right;
     const legendHeight = 20;
-    const legendPosition = { x: width / 2 - 100, y: height - 50 };
+    const legendPosition = { x: margin.left, y: height - legendHeight };
     const legend = svg.append("g")
         .attr("id", "legend")
         .attr("transform", `translate(${legendPosition.x}, ${legendPosition.y})`);
 
     const numRects = 10;
     const rectWidth = legendWidth / numRects;
-    const quantizedColors = d3.quantize(d3.interpolateReds, numRects);
+    const quantizedColors = props.mapType === 'sum' ? d3.quantize(d3.interpolateReds, numRects) : d3.quantize(d3.interpolateOranges, numRects);
     quantizedColors.forEach((color, i) => {
         legend.append("rect")
             .attr("x", i * rectWidth)
@@ -87,23 +155,40 @@ async function drawMap() {
     });
 
     legend.append("text")
-    .attr("x", 0)
-    .attr("y", -5)
-    .attr("text-anchor", "middle")
-    .text(`${(d3.min(Object.values(acreageByCounty)) / 1000).toFixed(0)}k`);
+        .attr("x", 0)
+        .attr("y", -5)
+        .attr("text-anchor", "middle")
+        .text(`${(d3.min(Object.values(dataByCounty)).toFixed(0))}`)
 
-legend.append("text")
-    .attr("x", legendWidth / 2)
-    .attr("y", -5)
-    .attr("text-anchor", "middle")
-    .text(`${(d3.median(Object.values(acreageByCounty)) / 1000).toFixed(0)}k`);
+    legend.append("text")
+        .attr("x", legendWidth / 2)
+        .attr("y", -5)
+        .attr("text-anchor", "middle")
+        .text(`${(d3.median(Object.values(dataByCounty)).toFixed(0))}`)
 
-legend.append("text")
-    .attr("x", legendWidth)
-    .attr("y", -5)
-    .attr("text-anchor", "middle")
-    .text(`${(d3.max(Object.values(acreageByCounty)) / 1000).toFixed(0)}k`);
+    legend.append("text")
+        .attr("x", legendWidth)
+        .attr("y", -5)
+        .attr("text-anchor", "middle")
+        .text(`${(d3.max(Object.values(dataByCounty)).toFixed(0))}`)
 
+
+    if (props.selectedCounty && dataByCounty[props.selectedCounty]) {
+        console.log('selectedCounty', props.selectedCounty);
+        const markerSize = 20;
+        const countyCenter = getCenterOfCounty(props.selectedCounty, geojsonData);
+        console.log('countyCenter', countyCenter);
+        const [x, y] = projection([countyCenter.lon, countyCenter.lat]);
+
+        svg.append('image')
+            .attr('x', x - markerSize / 2)
+            .attr('y', y - markerSize / 2)
+            .attr('width', markerSize)
+            .attr('height', markerSize)
+            .attr('xlink:href', 'fire.png');
+    }
+
+    emit('loaded');
 }
 
 function getCountyFromLatLon(lat, lon, geojsonData) {
@@ -123,11 +208,22 @@ function getCountyFromLatLon(lat, lon, geojsonData) {
 
     return county ? county.properties.CountyName : null;
 }
+
+function getCenterOfCounty(countyName, geojsonData) {
+    const countyFeature = geojsonData.features.find(feature => feature.properties.CountyName === countyName);
+    if (countyFeature) {
+        const [lon, lat] = d3.geoCentroid(countyFeature);
+        return { lon, lat };
+    }
+    return { lon: 0, lat: 0 };
+}
+
+// function getMarkerSize(dataByCounty, countyName) {
+//     const value = dataByCounty[countyName];
+//     const baseSize = 20;
+//     return baseSize * Math.log(value + 1);
+// }
+
 </script>
 
-<style>
-.map-container {
-    width: 100%;
-    height: 500px;
-}
-</style>
+<style></style>
