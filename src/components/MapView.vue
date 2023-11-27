@@ -6,7 +6,7 @@
       >
         <l-icon :icon-size="[dataPoint.iconSize,dataPoint.iconSize]"  icon-url="fire.png">
         </l-icon>
-        <l-popup :content="dataPoint.name+' '+dataPoint.date+' '+dataPoint.lat+','+dataPoint.lng">
+        <l-popup :content="'Cause: '+dataPoint.name+'; Fire Size Level: '+dataPoint.acreage">
         </l-popup>
       </l-marker>
     </l-map>

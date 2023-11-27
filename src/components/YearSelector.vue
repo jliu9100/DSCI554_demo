@@ -1,14 +1,14 @@
 <!-- YearSelector.vue -->
 <template>
   <div class="year-selector">
-    <el-button class="custom-button" @click="changeYear(-1,'year')" :icon="DArrowLeft" :disabled="isYearOutOfRange(selectedYear, 'left')"></el-button>
+    <el-button class="custom-button" @click="changeYear(-1,'year')" :icon="DArrowLeft" :disabled="isYearOutOfRange(selectedYear, 'left','year')"></el-button>
 
-    <el-button class="custom-button" @click="changeYear(-1,'month')" :icon="ArrowLeft" :disabled="isYearOutOfRange(selectedYear, 'left')"></el-button>
+    <el-button class="custom-button" @click="changeYear(-1,'month')" :icon="ArrowLeft" :disabled="isYearOutOfRange(selectedYear, 'left','month')"></el-button>
 
     <el-date-picker class="custom-picker" v-model="selectedYear" style="width: 8rem;" type="month" placeholder="Select month"
       :disabledDate="disabledDate" @change="onYearChange"></el-date-picker>
-    <el-button class="custom-button" @click="changeYear(1,'month')" :icon="ArrowRight" :disabled="isYearOutOfRange(selectedYear, 'right')"></el-button>
-    <el-button class="custom-button" @click="changeYear(1,'year')" :icon="DArrowRight" :disabled="isYearOutOfRange(selectedYear, 'right')"></el-button>
+    <el-button class="custom-button" @click="changeYear(1,'month')" :icon="ArrowRight" :disabled="isYearOutOfRange(selectedYear, 'right','month')"></el-button>
+    <el-button class="custom-button" @click="changeYear(1,'year')" :icon="DArrowRight" :disabled="isYearOutOfRange(selectedYear, 'right','year')"></el-button>
 
   </div>
 </template>
@@ -32,13 +32,22 @@ const disabledDate = (time) => {
   return year < minYear || year > maxYear;
 };
 
-const isYearOutOfRange = (date, direction) => {
+const isYearOutOfRange = (date, direction, yymm) => {
   if (!date) return true;
   const year = date.getFullYear();
+  const month = date.getMonth() + 1;
   if (direction === 'left') {
-    return year <= minYear;
+    if (yymm === 'year') {
+      return year <= minYear;
+    } else {
+      return year === minYear && month === 1;
+    }
   } else {
-    return year >= maxYear;
+    if (yymm === 'year') {
+      return year >= maxYear;
+    } else {
+      return year === maxYear && month === 12;
+    }
   }
 };
 
