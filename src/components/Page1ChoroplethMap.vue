@@ -91,6 +91,7 @@ async function drawMap() {
             dataByCounty = {};
             if (props.mapType === 'sum') {
                 for (const point of props.dataPoints) {
+
                     if (point.county) {
                         dataByCounty[point.county] = (dataByCounty[point.county] || 0) + point.acreage;
                         continue;
@@ -103,6 +104,7 @@ async function drawMap() {
                 sessionStorage.setItem("acreageByCounty", JSON.stringify(dataByCounty));
             } else {
                 for (const point of props.dataPoints) {
+
                     if (point.county) {
                         dataByCounty[point.county] = (dataByCounty[point.county] || 0) + 1;
                         continue;
@@ -177,15 +179,22 @@ async function drawMap() {
         console.log('selectedCounty', props.selectedCounty);
         const markerSize = 30;
         const countyCenter = getCenterOfCounty(props.selectedCounty, geojsonData);
-        console.log('countyCenter', countyCenter);
         const [x, y] = projection([countyCenter.lon, countyCenter.lat]);
-
         svg.append('image')
             .attr('x', x - markerSize / 2)
             .attr('y', y - markerSize / 2)
             .attr('width', markerSize)
             .attr('height', markerSize)
             .attr('xlink:href', 'fire.png');
+        //加上文字有name和acreage
+        svg.append('text')
+            .attr('x', x + markerSize / 2)
+            .attr('y', y - markerSize / 2)
+            .attr('text-anchor', 'start')
+            .attr('alignment-baseline', 'hanging')
+            .text(`${props.selectedCounty}: ${dataByCounty[props.selectedCounty].toFixed(0)}`)
+            .attr('fill', 'black')
+            .attr('font-size', '24px');
     }
 
     emit('loaded');

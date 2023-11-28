@@ -5,12 +5,21 @@ import Page2 from '../views/Page2.vue';
 import Page3 from '../views/Page3.vue';
 import Page4 from '../views/Page4.vue';
 import PackPage from '../views/PackPage.vue';
+import IntroPage from '../views/IntroPage.vue';
 
 const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),
     routes: [
         {
             path: '/',
+            name: 'IntroPage',
+            component: IntroPage,
+            meta: {
+                hideNavigation: true,
+            },
+        },
+        {
+            path: '/Home',
             name: 'HomePage',
             component: Home
         },

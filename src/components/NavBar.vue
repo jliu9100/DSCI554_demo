@@ -6,7 +6,7 @@
     mode="horizontal"
     @select="handleSelect"
   >
-    <el-menu-item index="/">Home Page</el-menu-item>
+    <el-menu-item index="/Home">Home Page</el-menu-item>
     <el-menu-item index="/Page1">By County</el-menu-item>
     <el-menu-item index="/Page2">By Cause</el-menu-item>
     <el-menu-item index="/Page3">Page3</el-menu-item>
@@ -16,7 +16,6 @@
 </template>
 
 <script setup>
-// import { ref } from 'vue'
 const handleSelect = (key, keyPath) => {
     console.log("Go To Page:", keyPath)
 }

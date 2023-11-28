@@ -1,12 +1,12 @@
 <!-- src/views/HomePage.vue -->
 <template>
+
   <DataLoader @update:data="handleDataUpdate" />
   <div class="map-container" v-loading.fullscreen.lock="isLoading">
     <div v-if="dataPoints && dataPoints.length">
       <h1 class="map-title">{{ title }}</h1>
       <YearSelector :initial-year="currentYear" :initialMonth="currentMonth" @update:yearMonth="updateYearMonth" />
       <MapView :dataPoints="filteredDataPoints" />
-      <h3 class="chart-title">ANNUAL NUMBER OF FIRES AND ACRES BURNED</h3>
       <HomePageBarChart :dataPoints="dataPoints" />
       <HomePageHeatMap :dataPoints="dataPoints" />
     </div>
@@ -34,8 +34,6 @@ onMounted(() => {
   }
 
 });
-// const startYear = 1985;
-// const endYear = 2023;
 
 const dataPoints = ref([]);
 const isLoading = ref(true);
@@ -100,4 +98,5 @@ const updateYearMonth = (yearMonth) => {
   z-index: 1000;
   width: 40%;
 }
+
 </style>
