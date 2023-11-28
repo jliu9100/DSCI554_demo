@@ -6,6 +6,7 @@ import Page3 from '../views/Page3.vue';
 import Page4 from '../views/Page4.vue';
 import PackPage from '../views/PackPage.vue';
 import IntroPage from '../views/IntroPage.vue';
+import TimelapsePage from '../views/TimelapsePage.vue';
 
 const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),
@@ -48,6 +49,11 @@ const router = createRouter({
             name: 'PackPage',
             component: PackPage
         },
+        {
+            path: '/timelapse',
+            name: 'TimelapsePage',
+            component: TimelapsePage
+        }
     ],
 });
 
