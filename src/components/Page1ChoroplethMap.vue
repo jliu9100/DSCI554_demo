@@ -175,7 +175,7 @@ async function drawMap() {
 
     if (props.selectedCounty && dataByCounty[props.selectedCounty]) {
         console.log('selectedCounty', props.selectedCounty);
-        const markerSize = 20;
+        const markerSize = 30;
         const countyCenter = getCenterOfCounty(props.selectedCounty, geojsonData);
         console.log('countyCenter', countyCenter);
         const [x, y] = projection([countyCenter.lon, countyCenter.lat]);
