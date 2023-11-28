@@ -29,80 +29,11 @@ export default async function timelapse(selector) {
     .append('svg')
     .attr('width', width + margin.left + margin.right)
     .attr('height', height + margin.top + margin.bottom)
-  // .call(responsivefy);
 
   /* Add working region inside margins */
   const g = svg.append('g')
     .attr('transform',
       `translate(${margin.left}, ${margin.top})`);
-
-  var sampleData = [
-    {
-      year: 2010,
-      acresBurned: 100,
-      intraYearIndex: 0
-    },
-    {
-      year: 2010,
-      acresBurned: 100,
-      intraYearIndex: 1
-    },
-    {
-      year: 2010,
-      acresBurned: 100,
-      intraYearIndex: 2
-    },
-    {
-      year: 2010,
-      acresBurned: 200,
-      intraYearIndex: 3
-    },
-    {
-      year: 2011,
-      acresBurned: 150,
-      intraYearIndex: 0
-    },
-    {
-      year: 2011,
-      acresBurned: 150,
-      intraYearIndex: 1
-    },
-    {
-      year: 2011,
-      acresBurned: 150,
-      intraYearIndex: 2
-    },
-    {
-      year: 2011,
-      acresBurned: 150,
-      intraYearIndex: 3
-    },
-    {
-      year: 2011,
-      acresBurned: 150,
-      intraYearIndex: 4
-    },
-    {
-      year: 2011,
-      acresBurned: 150,
-      intraYearIndex: 5
-    },
-    {
-      year: 2011,
-      acresBurned: 10,
-      intraYearIndex: 6
-    },
-    {
-      year: 2012,
-      acresBurned: 10,
-      intraYearIndex: 0
-    },
-    {
-      year: 2012,
-      acresBurned: 10,
-      intraYearIndex: 1
-    },
-  ]
 
   const data = await d3.json('timelapse.json')
   const data_by_month = await d3.json('timelapse_by_month.json')
@@ -136,8 +67,9 @@ export default async function timelapse(selector) {
 
   // Create x-axis
   const xAxis = d3.axisBottom(x)
-    .tickSize(0)
     .tickPadding(5)
+    .tickFormat(d => ((d % 5) == 0) ? d : '');
+
   g.append('g')
     .attr("class", "axis")
     .attr('transform', 'translate(0,' + height + ')')
@@ -167,7 +99,6 @@ export default async function timelapse(selector) {
     .attr('height', 600)
     .attr("xlink:href", "smoke.png")
 
-
   const monthGroup = svg.append('g')
     .attr('width', '200px')
     .attr('transform', 'translate(300, 100)');
@@ -188,7 +119,7 @@ export default async function timelapse(selector) {
       .attr('font-size', (d, i) => (i == 1) ? '2em' : '1em')
   }
 
-  var i = 4;
+  var i = 0;
 
   function doThing() {
     // Draw months
