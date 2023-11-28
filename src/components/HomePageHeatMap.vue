@@ -86,12 +86,12 @@ const createHeatMap = (data) => {
         .text("Year");
 
     const colorScale = d3.scaleSequential(d3.interpolateInferno)
-        .domain([0, d3.max(countsByYearMonth, d => d3.max(d.months.values()))])
-        .range(["orange", "Crimson"]);
+        .domain([d3.min(countsByYearMonth, d => d3.min(d.months.values())), d3.max(countsByYearMonth, d => d3.max(d.months.values()))])
+        .range(["yellow", "Crimson"]);
 
-    const sizeScale = d3.scaleLinear()
-        .domain([0, d3.max(countsByYearMonth, d => d3.max(d.months.values()))])
-        .range([0, y.bandwidth() / 2]);
+        const sizeScale = d3.scaleSqrt()
+    .domain([0, d3.max(countsByYearMonth, d => d3.max(d.months.values()))])
+    .range([0, y.bandwidth() / 1.5]);
 
     // Append the squares
     countsByYearMonth.forEach(yearEntry => {

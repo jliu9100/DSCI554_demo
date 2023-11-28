@@ -15,10 +15,10 @@ const loadData = async () => {
 
         const rawData = await d3.json('data/CA_Fires.json');
         // first 10000 data points
-        const keys = rawData.slice(0, 10000);
+        // const keys = rawData.slice(0, 10000);
         // all data points
         // const keys = rawData.slice(0, 1000);
-        // const keys = rawData;
+        const keys = rawData;
 
         const dataPoints = keys.map(data => {
             const date = new Date(data.ignition_year, 0); // 创建一个日期对象，设置为当年的1月1日

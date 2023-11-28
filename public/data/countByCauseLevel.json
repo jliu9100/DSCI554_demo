@@ -1,0 +1,401 @@
+[
+    {
+        "class": "A",
+        "cause": [
+            {
+                "name": "Arson",
+                "count": 3799
+            },
+            {
+                "name": "Campfire",
+                "count": 2787
+            },
+            {
+                "name": "Children",
+                "count": 1472
+            },
+            {
+                "name": "Debris Burning",
+                "count": 3476
+            },
+            {
+                "name": "Equipment Use",
+                "count": 5246
+            },
+            {
+                "name": "Fireworks",
+                "count": 35
+            },
+            {
+                "name": "Lightning",
+                "count": 6819
+            },
+            {
+                "name": "Miscellaneous",
+                "count": 11500
+            },
+            {
+                "name": "Missing/Undefined",
+                "count": 6496
+            },
+            {
+                "name": "Powerline",
+                "count": 244
+            },
+            {
+                "name": "Railroad",
+                "count": 62
+            },
+            {
+                "name": "Smoking",
+                "count": 1248
+            },
+            {
+                "name": "Structure",
+                "count": 32
+            }
+        ]
+    },
+    {
+        "class": "B",
+        "cause": [
+            {
+                "name": "Arson",
+                "count": 3384
+            },
+            {
+                "name": "Campfire",
+                "count": 461
+            },
+            {
+                "name": "Children",
+                "count": 1133
+            },
+            {
+                "name": "Debris Burning",
+                "count": 3458
+            },
+            {
+                "name": "Equipment Use",
+                "count": 6322
+            },
+            {
+                "name": "Fireworks",
+                "count": 38
+            },
+            {
+                "name": "Lightning",
+                "count": 2577
+            },
+            {
+                "name": "Miscellaneous",
+                "count": 11551
+            },
+            {
+                "name": "Missing/Undefined",
+                "count": 5080
+            },
+            {
+                "name": "Powerline",
+                "count": 242
+            },
+            {
+                "name": "Railroad",
+                "count": 61
+            },
+            {
+                "name": "Smoking",
+                "count": 748
+            },
+            {
+                "name": "Structure",
+                "count": 30
+            }
+        ]
+    },
+    {
+        "class": "C",
+        "cause": [
+            {
+                "name": "Arson",
+                "count": 336
+            },
+            {
+                "name": "Campfire",
+                "count": 52
+            },
+            {
+                "name": "Children",
+                "count": 65
+            },
+            {
+                "name": "Debris Burning",
+                "count": 208
+            },
+            {
+                "name": "Equipment Use",
+                "count": 822
+            },
+            {
+                "name": "Fireworks",
+                "count": 3
+            },
+            {
+                "name": "Lightning",
+                "count": 442
+            },
+            {
+                "name": "Miscellaneous",
+                "count": 1194
+            },
+            {
+                "name": "Missing/Undefined",
+                "count": 559
+            },
+            {
+                "name": "Powerline",
+                "count": 44
+            },
+            {
+                "name": "Railroad",
+                "count": 19
+            },
+            {
+                "name": "Smoking",
+                "count": 44
+            },
+            {
+                "name": "Structure",
+                "count": 0
+            }
+        ]
+    },
+    {
+        "class": "D",
+        "cause": [
+            {
+                "name": "Arson",
+                "count": 56
+            },
+            {
+                "name": "Campfire",
+                "count": 24
+            },
+            {
+                "name": "Children",
+                "count": 14
+            },
+            {
+                "name": "Debris Burning",
+                "count": 35
+            },
+            {
+                "name": "Equipment Use",
+                "count": 155
+            },
+            {
+                "name": "Fireworks",
+                "count": 3
+            },
+            {
+                "name": "Lightning",
+                "count": 134
+            },
+            {
+                "name": "Miscellaneous",
+                "count": 274
+            },
+            {
+                "name": "Missing/Undefined",
+                "count": 115
+            },
+            {
+                "name": "Powerline",
+                "count": 3
+            },
+            {
+                "name": "Railroad",
+                "count": 1
+            },
+            {
+                "name": "Smoking",
+                "count": 12
+            },
+            {
+                "name": "Structure",
+                "count": 2
+            }
+        ]
+    },
+    {
+        "class": "E",
+        "cause": [
+            {
+                "name": "Arson",
+                "count": 36
+            },
+            {
+                "name": "Campfire",
+                "count": 9
+            },
+            {
+                "name": "Children",
+                "count": 3
+            },
+            {
+                "name": "Debris Burning",
+                "count": 18
+            },
+            {
+                "name": "Equipment Use",
+                "count": 72
+            },
+            {
+                "name": "Fireworks",
+                "count": 2
+            },
+            {
+                "name": "Lightning",
+                "count": 120
+            },
+            {
+                "name": "Miscellaneous",
+                "count": 122
+            },
+            {
+                "name": "Missing/Undefined",
+                "count": 66
+            },
+            {
+                "name": "Powerline",
+                "count": 6
+            },
+            {
+                "name": "Railroad",
+                "count": 3
+            },
+            {
+                "name": "Smoking",
+                "count": 3
+            },
+            {
+                "name": "Structure",
+                "count": 1
+            }
+        ]
+    },
+    {
+        "class": "F",
+        "cause": [
+            {
+                "name": "Arson",
+                "count": 13
+            },
+            {
+                "name": "Campfire",
+                "count": 13
+            },
+            {
+                "name": "Children",
+                "count": 0
+            },
+            {
+                "name": "Debris Burning",
+                "count": 7
+            },
+            {
+                "name": "Equipment Use",
+                "count": 33
+            },
+            {
+                "name": "Fireworks",
+                "count": 0
+            },
+            {
+                "name": "Lightning",
+                "count": 132
+            },
+            {
+                "name": "Miscellaneous",
+                "count": 72
+            },
+            {
+                "name": "Missing/Undefined",
+                "count": 51
+            },
+            {
+                "name": "Powerline",
+                "count": 4
+            },
+            {
+                "name": "Railroad",
+                "count": 2
+            },
+            {
+                "name": "Smoking",
+                "count": 0
+            },
+            {
+                "name": "Structure",
+                "count": 2
+            }
+        ]
+    },
+    {
+        "class": "G",
+        "cause": [
+            {
+                "name": "Arson",
+                "count": 8
+            },
+            {
+                "name": "Campfire",
+                "count": 8
+            },
+            {
+                "name": "Children",
+                "count": 3
+            },
+            {
+                "name": "Debris Burning",
+                "count": 3
+            },
+            {
+                "name": "Equipment Use",
+                "count": 18
+            },
+            {
+                "name": "Fireworks",
+                "count": 0
+            },
+            {
+                "name": "Lightning",
+                "count": 105
+            },
+            {
+                "name": "Miscellaneous",
+                "count": 43
+            },
+            {
+                "name": "Missing/Undefined",
+                "count": 14
+            },
+            {
+                "name": "Powerline",
+                "count": 1
+            },
+            {
+                "name": "Railroad",
+                "count": 1
+            },
+            {
+                "name": "Smoking",
+                "count": 0
+            },
+            {
+                "name": "Structure",
+                "count": 1
+            }
+        ]
+    }
+]
