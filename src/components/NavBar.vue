@@ -12,14 +12,15 @@
     <el-menu-item index="/Page3">Page3</el-menu-item>
     <el-menu-item index="/Page4">Page4</el-menu-item>
     <el-menu-item index="/pack">Pack(By Damage)</el-menu-item>
+    <el-menu-item index="/timelapse">Timelapse</el-menu-item>
   </el-menu>
 </template>
 
 <script setup>
 // import { ref } from 'vue'
 const handleSelect = (key, keyPath) => {
-    console.log("Go To Page:", keyPath)
-}
+  console.log("Go To Page:", keyPath);
+};
 </script>
 
 <style></style>
