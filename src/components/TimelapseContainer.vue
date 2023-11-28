@@ -80,4 +80,15 @@ onMounted(() => {
 div.tooltip-div p {
   margin: 5px;
 }
+
+.month-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  fill: grey;
+  font-weight: bold;
+  font-size: 8rem;
+  opacity: 50%;
+  margin-left: 4rem;
+}
 </style>
