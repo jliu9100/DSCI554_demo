@@ -99,32 +99,30 @@ export default async function timelapse(selector) {
     .attr('height', 600)
     .attr("xlink:href", "smoke.png")
 
-  const monthGroup = svg.append('g')
-    .attr('width', '200px')
-    .attr('transform', 'translate(300, 100)');
+  const monthGroup = svg
+    .append('foreignObject')
+    .attr('x', 0)
+    .attr('y', 0)
+    .attr('width', '100%')
+    .attr('height', '100%')
+    .append('xhtml:div')
+    .attr('class', 'month-container')
 
-  function drawMonths(selector, monthIndex) {
-    const allMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-    const months = [
-      allMonths[(monthIndex - 1 + 12) % 12],
-      allMonths[monthIndex],
-      allMonths[(monthIndex + 1) % 12]
-    ]
-    selector.selectAll('text')
-      .data(months)
-      .join('text')
-      .text((d, i) => (i == 1) ? d : '')
-      .attr('transform', (d, i) => 'translate(' + (i * 100) + ', 0)')
-      .attr('font-weight', (d, i) => (i == 1) ? 'bold' : '100')
-      .attr('font-size', (d, i) => (i == 1) ? '2em' : '1em')
+  function drawMonth(selector, monthIndex) {
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    const month = months[monthIndex];
+    selector
+      .html(`
+      <p>${month}</p>
+          `)
   }
 
-  var i = 0;
+  var i = 6;
 
   function doThing() {
     // Draw months
-    drawMonths(monthGroup, i)
-  
+    drawMonth(monthGroup, i)
+
     // Draw data points
     drawSmoke(g, data_by_month[i], width, height, x, xSubYear, y, yProportion);
 
