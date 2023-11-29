@@ -176,7 +176,6 @@ async function drawMap() {
 
 
     if (props.selectedCounty && dataByCounty[props.selectedCounty]) {
-        console.log('selectedCounty', props.selectedCounty);
         const markerSize = 30;
         const countyCenter = getCenterOfCounty(props.selectedCounty, geojsonData);
         const [x, y] = projection([countyCenter.lon, countyCenter.lat]);
@@ -226,12 +225,6 @@ function getCenterOfCounty(countyName, geojsonData) {
     }
     return { lon: 0, lat: 0 };
 }
-
-// function getMarkerSize(dataByCounty, countyName) {
-//     const value = dataByCounty[countyName];
-//     const baseSize = 20;
-//     return baseSize * Math.log(value + 1);
-// }
 
 </script>
 

@@ -46,12 +46,10 @@ const handleResize = () => {
 
 @keyframes slideout {
   0% {
-    /* transform: translateY(-15px); */
     opacity: 0%;
   }
 
   10% {
-    /* transform: translateY(100%); */
     opacity: 80%;
   }
 

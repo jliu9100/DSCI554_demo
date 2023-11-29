@@ -14,5 +14,4 @@ const showNavbar = computed(() => !route.meta.hideNavigation);
 </script>
 
 <style>
-/* 添加全局样式 */
 </style>
