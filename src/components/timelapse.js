@@ -23,8 +23,6 @@ function drawSmoke(selection, data, width, height, x, xSubYear, y, yProportion, 
 }
 
 export default async function timelapse(selector) {
-  /* Create SVG */
-  // 删除selector里的所有svg
   d3.select(selector).selectAll('svg').remove();
   const divWidth = document.querySelector('#timelapse-chart').clientWidth;
   const divHeight = 300;
@@ -37,7 +35,6 @@ export default async function timelapse(selector) {
     .attr('width', width + margin.left + margin.right)
     .attr('height', height + margin.top + margin.bottom)
 
-  /* Add working region inside margins */
   const g = svg.append('g')
     .attr('transform',
       `translate(${margin.left}, ${margin.top})`);
@@ -45,7 +42,6 @@ export default async function timelapse(selector) {
   const data = await d3.json('timelapse.json');
   const data_by_month = await d3.json('timelapse_by_month.json');
 
-  // Reformat data
   const years = data.map(d => d.year)
   const uniqueYears = [...new Set(years)].sort(d3.ascending);
   const acresBurned = data.map(d => d.acresBurned);

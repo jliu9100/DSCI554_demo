@@ -31,17 +31,13 @@ const totalCount = computed(() => {
 
 async function loadCauseCountData() {
     try {
-        // 尝试从 cause.json 文件加载
         const response = await d3.json('data/countByCause.json');
         causeCount.value = response;
     } catch (error) {
-        // 如果 cause.json 文件不存在
         const cachedData = sessionStorage.getItem('dataByCause');
         if (cachedData) {
-            // 从 sessionStorage 加载
             causeCount.value = JSON.parse(cachedData);
         } else {
-            // 计算数据并存储到 sessionStorage
             const countMap = new Map();
             props.dataPoints.forEach(point => {
                 countMap.set(point.name, (countMap.get(point.name) || 0) + 1);
@@ -88,11 +84,9 @@ function handleResize() {
 
 function drawPieChart(data, container) {
     emit('loading');
-    // 设置饼图的尺寸和边距
     const margin = { top: 100, right: 20, bottom: 20, left: 20 };
     const width = chartContainer.value.clientWidth / 2 - margin.left - margin.right;
     const height = chartContainer.value.clientWidth / 2 - margin.top - margin.bottom;
-    // 创建 SVG 容器
     const svg = d3.select(container)
         .append('svg')
         .attr('class', 'chart-container')
@@ -111,7 +105,6 @@ function drawPieChart(data, container) {
         .domain(data.map(d => d.name))
         .range(d3.schemeCategory10);
 
-    // 绘制每个饼图片段
     svg.append('g')
         .attr('transform', `translate(${width},${height / 2})`)
         .selectAll('path')
@@ -138,8 +131,6 @@ function drawPieChart(data, container) {
                     .transition()
                     .duration(200)
                     .attr('transform', `translate(${x * 0.1}, ${y * 0.1})`);
-
-                // 显示气泡
                 showTooltip(event, d.data);
 
             } else {
@@ -155,52 +146,39 @@ function drawPieChart(data, container) {
 
     async function loadCauseData(fileName, causeName) {
         try {
-            // 加载原始数据
             const response = await d3.json(`data/${fileName}`);
-
-            // 转换数据
             return response.map(item => {
-                // 查找与 causeName 匹配的项目
                 const causeItem = item.cause.find(c => c.name === causeName);
-                // 返回新的结构，包含类别和计数
                 return {
                     class: item.class ? item.class : item.year,
-                    count: causeItem ? causeItem.count : 0 // 如果没有找到匹配项，计数为 0
+                    count: causeItem ? causeItem.count : 0 
                 };
             });
         } catch (error) {
             console.error("Error loading data:", error);
-            return []; // 在出错时返回空数组
+            return []; 
         }
     }
 
     function drawAdditionalPieChart(data, containerRef) {
-        // 首先，确定容器的尺寸
         const margin = { top: 50, right: 50, bottom: 50, left: 50 };
         const width = containerRef.value.clientWidth - margin.left - margin.right;
         const height = containerRef.value.clientWidth - margin.top - margin.bottom;
         const outerRadius = Math.min(width, height) / 2 - margin.top;
 
-        // 清除容器内的内容
         d3.select(containerRef.value).selectAll('*').remove();
-
-        // 创建 SVG 容器
         const svg = d3.select(containerRef.value)
             .append('svg')
             .attr('width', width)
             .attr('height', height)
             .append('g')
             .attr('transform', `translate(${width / 2}, ${height / 2})`);;
-
-        // 创建饼图布局
         const pie = d3.pie()
             .value(d => d.count)
             .sort(null);
-        // 创建弧生成器
         const arc = d3.arc()
             .innerRadius(0)
             .outerRadius(outerRadius);
-        // 创建红色系比例尺
         let color;
         if (containerRef.value === subContainer2.value) {
             color = d3.scaleOrdinal()
@@ -210,16 +188,12 @@ function drawPieChart(data, container) {
             color = d3.scaleOrdinal(d3.schemeSpectral[11])
                 .domain(data.map(d => d.class));
         }
-
-        // 绘制饼图
         svg.selectAll('path')
             .data(pie(data))
             .enter()
             .append('path')
             .attr('fill', d => color(d.data.class))
             .attr('d', arc);
-
-        // 可选：添加文本标签
         svg.selectAll('text')
             .data(pie(data))
             .enter()
@@ -228,7 +202,6 @@ function drawPieChart(data, container) {
             .attr('dy', '0.35em')
             .style('text-anchor', 'middle')
             .text(d => {
-                // 根据不同的类别返回不同的文本
                 if (containerRef.value === subContainer1.value) {
                     return d.data.class
                 } else {
@@ -236,7 +209,7 @@ function drawPieChart(data, container) {
                         case 'A': return 'Critical';
                         case 'B': return 'Moderate';
                         case 'C': return 'Mild';
-                        default: return ''; // 对于其他类别不显示文本
+                        default: return ''; 
                     }
 
                 }
@@ -246,7 +219,7 @@ function drawPieChart(data, container) {
     const tooltip = d3.select(container)
         .append('div')
         .style('opacity', 0)
-        .attr('class', 'tooltip') // 使用这个类来应用样式
+        .attr('class', 'tooltip') 
         .style('position', 'absolute')
         .style('pointer-events', 'none');
 
@@ -274,7 +247,7 @@ function drawPieChart(data, container) {
 
 
                 const [labelX, labelY] = arc.centroid(d);
-                const lineLength = 20; // 线的长度
+                const lineLength = 20; 
                 const midAngle = (d.startAngle + d.endAngle) / 2;
                 const textAnchor = midAngle < Math.PI ? 'start' : 'end';
 
@@ -345,7 +318,6 @@ function drawPieChart(data, container) {
     top: 20vw;
     left: 5vw;
     width: 30%;
-    /* 或根据需要调整 */
 }
 
 .subChart2 {
@@ -354,6 +326,5 @@ function drawPieChart(data, container) {
     top: 20vw;
     right: 5vw;
     width: 30%;
-    /* 或根据需要调整 */
 }
 </style>

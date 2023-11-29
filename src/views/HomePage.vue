@@ -57,7 +57,6 @@ const filteredDataPoints = computed(() => {
 
 const updateYearMonth = (yearMonth) => {
   const { year, month } = yearMonth;
-  console.log("updateYearMonth: ", year, month);
   currentYear.value = year;
   currentMonth.value = month;
   sessionStorage.setItem('selectedYear', year);
