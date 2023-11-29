@@ -10,6 +10,7 @@ import { onMounted, ref, defineProps, defineEmits, onUnmounted } from 'vue';
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({
     dataPoints: Array,
+    mapType: String  // 新增属性
 });
 
 const emit = defineEmits(['loading', 'loaded']);
@@ -63,14 +64,18 @@ async function drawMap() {
         .translate([width / 2, height / 2]);
     const path = d3.geoPath().projection(projection);
 
+  const rasterPatternId = props.mapType === 'map1' ? 'rasterPatternMap1' : 'rasterPatternMap2';
+
+  const rasterImage = props.mapType === 'map1' ? 'density_gradient.png' : 'density_gradient_2015.png';
+
   svg.append('defs')
       .append('pattern')
-      .attr('id', 'rasterPattern')
+      .attr('id', rasterPatternId)
       .attr('patternUnits', 'userSpaceOnUse')
       .attr('width', width)
       .attr('height', height)
       .append('image')
-      .attr('xlink:href', 'density_gradient.png')
+      .attr('xlink:href', rasterImage)
       .attr('width', width)
       .attr('height', height)
       .attr('x', 0)
@@ -85,7 +90,7 @@ async function drawMap() {
         .append("path")
         .attr("d", path)
         .attr("stroke", "#000")
-        .attr("fill", "url(#rasterPattern)")
+        .attr("fill", `url(#${rasterPatternId})`)
         .attr("stroke-width", 1);
 
     emit('loaded');
@@ -94,8 +99,6 @@ async function drawMap() {
 </script>
 
 <style>
-.raster-image {
-  mix-blend-mode: multiply;
-  background: linear-gradient(135deg, rgba(128, 0, 128, 0.7), rgba(0, 0, 255, 0.7));
-}
+
+
 </style>
