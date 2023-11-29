@@ -1,22 +1,33 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../views/HomePage.vue';
-import Page1 from '../views/Page1.vue';
+import SubPage1 from '../views/SubPage1.vue';
 import Page2 from '../views/Page2.vue';
 import Page3 from '../views/Page3.vue';
 import Page4 from '../views/Page4.vue';
+import PackPage from '../views/PackPage.vue';
+import IntroPage from '../views/IntroPage.vue';
+import TimelapsePage from '../views/TimelapsePage.vue';
 
 const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),
     routes: [
         {
             path: '/',
+            name: 'IntroPage',
+            component: IntroPage,
+            meta: {
+                hideNavigation: true,
+            },
+        },
+        {
+            path: '/Home',
             name: 'HomePage',
             component: Home
         },
         {
             path: '/page1',
             name: 'PageWOName1',
-            component: Page1
+            component: SubPage1
         },
         {
             path: '/page2',
@@ -32,6 +43,16 @@ const router = createRouter({
             path: '/page4',
             name: 'PageWOName4',
             component: Page4
+        },
+        {
+            path: '/pack',
+            name: 'PackPage',
+            component: PackPage
+        },
+        {
+            path: '/timelapse',
+            name: 'TimelapsePage',
+            component: TimelapsePage
         }
     ],
 });

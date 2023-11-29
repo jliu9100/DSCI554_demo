@@ -1,0 +1,50 @@
+[
+    {
+        "name": "Miscellaneous",
+        "count": 24756
+    },
+    {
+        "name": "Equipment Use",
+        "count": 12668
+    },
+    {
+        "name": "Lightning",
+        "count": 10329
+    },
+    {
+        "name": "Arson",
+        "count": 7632
+    },
+    {
+        "name": "Debris Burning",
+        "count": 7205
+    },
+    {
+        "name": "Campfire",
+        "count": 3354
+    },
+    {
+        "name": "Children",
+        "count": 2690
+    },
+    {
+        "name": "Smoking",
+        "count": 2055
+    },
+    {
+        "name": "Powerline",
+        "count": 544
+    },
+    {
+        "name": "Railroad",
+        "count": 149
+    },
+    {
+        "name": "Fireworks",
+        "count": 81
+    },
+    {
+        "name": "Structure",
+        "count": 68
+    }
+]
