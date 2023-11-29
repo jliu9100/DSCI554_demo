@@ -48,7 +48,6 @@ export default async function timelapse(selector) {
   var maxIntraYearIndexByMonth = data_by_month.map(
     monthList => Math.max(
       ...monthList.map(d => d.intraYearIndex)));
-  console.log(maxIntraYearIndexByMonth);
 
   // Generate axial scales
   const x = d3.scalePoint(
@@ -111,6 +110,89 @@ export default async function timelapse(selector) {
     .attr('height', 600)
     .attr("xlink:href", "smoke.png")
 
+  const circles = [0.5, 2, 5].map(d => d * Math.pow(10, 5));
+  const maxRadius = r(Math.max(...circles));
+  const legend = svg
+    .append('g')
+    .style('transform', 'translate(1200px, 100px)')
+
+  legend
+    .append('rect')
+    .attr('width', 400)
+    .attr('height', maxRadius * 2 + 100)
+    // .attr('stroke', 'black')
+    .attr('fill-opacity', '0%')
+    .attr('transform', 'translate(-10, -90)')
+
+  legend
+    .append('text')
+    .text('Acres Burned')
+    // .style('font-weight', 'bold')
+    .attr('transform', 'translate(243, 80)')
+
+  legend
+    .append('text')
+    .text('}')
+    .style('font-size', '4rem')
+    .style('font-weight', '1')
+    .attr('opacity', '60%')
+    .attr('transform', 'translate(210, 92)')
+
+  const leg = legend
+    .append('g')
+    .attr('transform', 'translate(25, -40)')
+
+  leg
+    .append('circle')
+    .attr('cx', 0)
+    .attr('cy', 0)
+    .attr('r', r(100000))
+    .attr('fill', 'blue')
+    .attr('stroke', 'black')
+    .attr('fill-opacity', '10%')
+    .attr('transform', 'translate(45, 0)')
+  leg
+    .append('text')
+    .text('= 1 fire')
+    .style('font-weight', 'bold')
+    .attr('transform', 'translate(80, 5)')
+
+  const leg2 = legend.append('g')
+    .attr('transform', 'translate(20, 5)')
+
+  const legendGroups = leg2
+    .selectAll('g')
+    .data(circles)
+    .join('g')
+
+  legendGroups
+    .append('circle')
+    .attr('cx', maxRadius)
+    .attr('cy', d => 2 * maxRadius - r(d))
+    .attr('r', d => r(d))
+    .attr('fill', 'blue')
+    .attr('stroke', 'black')
+    // .attr('stroke-width', '5px')
+    .attr('fill-opacity', '10%')
+
+  const textStartX = (1.5 * maxRadius) + maxRadius;
+  legendGroups
+    .append('text')
+    .text(d => d.toLocaleString('en-US'))
+    .attr('x', textStartX)
+    .attr('y', d => 2 * maxRadius - r(d) + 5)
+    .attr('alignment-baseline', 'bottom')
+
+  legendGroups
+    .append('line')
+    .attr('x1', d => r(d) + maxRadius)
+    .attr('x2', textStartX)
+    .attr('y1', d => 2 * maxRadius - r(d))
+    .attr('y2', d => 2 * maxRadius - r(d))
+    .attr('fill', 'blue')
+    .attr('stroke', 'black')
+
+
   const monthGroup = svg
     .append('foreignObject')
     .attr('x', 0)
@@ -137,7 +219,7 @@ export default async function timelapse(selector) {
     drawSmoke(g, data_by_month[monthIndex], width, height, x, xSubYear, y, yProportion, r);
 
     const nextMonthIndex = ((monthIndex + 1) % 12);
-    setTimeout(doThing.bind(null, nextMonthIndex), maxIntraYearIndexByMonth[monthIndex]* 40);
+    setTimeout(doThing.bind(null, nextMonthIndex), maxIntraYearIndexByMonth[monthIndex] * 40);
   }
   doThing(0);
 
