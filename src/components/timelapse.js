@@ -1,7 +1,10 @@
 import * as d3 from 'd3';
 
+/*
+get the total delay by month
+*/
 
-function drawSmoke(selection, data, width, height, x, xSubYear, y, yProportion) {
+function drawSmoke(selection, data, width, height, x, xSubYear, y, yProportion, r) {
   selection.selectAll('circle').remove();
   selection.selectAll('circle')
     .data(data)
@@ -11,7 +14,7 @@ function drawSmoke(selection, data, width, height, x, xSubYear, y, yProportion) 
     .duration(0)
     .delay((d, i) => d.intraYearIndex * 30)
     .attr('fill', 'red')
-    .attr('r', d => d.acresBurned * 0.0001)
+    .attr('r', d => r(d.acresBurned))
     .attr('cy', height - 5)
     .attr('cx', d => x(d.year) + xSubYear(Math.random()))
     .style('--height', d => y(d.acresBurned))
@@ -21,8 +24,8 @@ function drawSmoke(selection, data, width, height, x, xSubYear, y, yProportion) 
 
 export default async function timelapse(selector) {
   /* Create SVG */
-  const margin = { top: 10, right: 30, bottom: 60, left: 100 },
-    width = 1000 - margin.left - margin.right,
+  const margin = { top: 50, right: 100, bottom: 60, left: 200 },
+    width = 1600 - margin.left - margin.right,
     height = 600 - margin.top - margin.bottom;
 
   const svg = d3.select(selector)
@@ -35,13 +38,17 @@ export default async function timelapse(selector) {
     .attr('transform',
       `translate(${margin.left}, ${margin.top})`);
 
-  const data = await d3.json('timelapse.json')
-  const data_by_month = await d3.json('timelapse_by_month.json')
+  const data = await d3.json('timelapse.json');
+  const data_by_month = await d3.json('timelapse_by_month.json');
 
   // Reformat data
   const years = data.map(d => d.year)
   const uniqueYears = [...new Set(years)].sort(d3.ascending);
   const acresBurned = data.map(d => d.acresBurned);
+  var maxIntraYearIndexByMonth = data_by_month.map(
+    monthList => Math.max(
+      ...monthList.map(d => d.intraYearIndex)));
+  console.log(maxIntraYearIndexByMonth);
 
   // Generate axial scales
   const x = d3.scalePoint(
@@ -64,6 +71,11 @@ export default async function timelapse(selector) {
     [0, d3.max(acresBurned)],
     [0, 1]
   );
+
+  const r = d3.scaleSqrt(
+    [0, d3.max(acresBurned)],
+    [0, 75]
+  )
 
   // Create x-axis
   const xAxis = d3.axisBottom(x)
@@ -89,7 +101,7 @@ export default async function timelapse(selector) {
   svg.append('text')
     .attr('transform-box', 'fill-box')
     .attr('transform', 'translate(' + (margin.left / 2) + ',' + (margin.top + (height * 4 / 5)) + ') rotate(-90)')
-    .text('# Acres Burned')
+    .text('Area Burned Per Fire (Acres)')
     .attr('class', 'axis-label')
 
   svg.append("svg:image")
@@ -117,18 +129,16 @@ export default async function timelapse(selector) {
           `)
   }
 
-  var i = 6;
-
-  function doThing() {
+  function doThing(monthIndex) {
     // Draw months
-    drawMonth(monthGroup, i)
+    drawMonth(monthGroup, monthIndex)
 
     // Draw data points
-    drawSmoke(g, data_by_month[i], width, height, x, xSubYear, y, yProportion);
+    drawSmoke(g, data_by_month[monthIndex], width, height, x, xSubYear, y, yProportion, r);
 
-    i = ((i + 1) % 12);
+    const nextMonthIndex = ((monthIndex + 1) % 12);
+    setTimeout(doThing.bind(null, nextMonthIndex), maxIntraYearIndexByMonth[monthIndex]* 40);
   }
-  doThing();
-  setInterval(doThing, 10000)
+  doThing(0);
 
 }

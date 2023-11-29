@@ -87,8 +87,9 @@ div.tooltip-div p {
   justify-content: center;
   fill: grey;
   font-weight: bold;
-  font-size: 8rem;
+  font-size: 6rem;
   opacity: 50%;
-  margin-left: 4rem;
+  margin-left: 10rem;
+  margin-top: 5rem;
 }
 </style>
