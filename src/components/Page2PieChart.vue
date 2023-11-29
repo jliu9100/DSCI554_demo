@@ -308,6 +308,8 @@ function drawPieChart(data, container) {
             hideTooltip();
             svg.selectAll('.label-line').remove();
             svg.selectAll('.label-text').remove();
+            d3.select(subContainer1.value).selectAll('*').remove();
+            d3.select(subContainer2.value).selectAll('*').remove();
         }
     });
 
