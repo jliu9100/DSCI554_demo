@@ -6,14 +6,14 @@
 
 
     <el-row>
-      <el-col :span="8">
+      <el-col :span="12">
         <div v-if="dataPoints && dataPoints.length">
           <h2>{{ subtitle1 }}</h2>
           <Page3DensityMap :dataPoints="null" mapType="map1" @loading="handleMapLoading" @loaded="handleMapLoaded" />
         </div>
       </el-col>
 
-      <el-col :span="8">
+      <el-col :span="12">
         <div v-if="dataPoints && dataPoints.length">
           <h2>{{ subtitle2 }}</h2>
           <Page3DensityMap :dataPoints="null" mapType="map2" @loading="handleMapLoading" @loaded="handleMapLoaded" />

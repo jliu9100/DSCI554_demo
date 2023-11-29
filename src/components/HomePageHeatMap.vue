@@ -43,10 +43,10 @@ const createHeatMap = (data) => {
             return { year, months: monthCounts };
         })
         .sort((a, b) => b.year - a.year) // Sort by year descending
-        .slice(0, 10); // Get the most recent ten years
+        .slice(0, 11); // Get the most recent ten years
 
     const years = countsByYearMonth.map(d => d.year);
-    const margin = { top: 20, right: 20, bottom: 20, left: 30 },
+    const margin = { top: 20, right: 20, bottom: 20, left: 50 },
         width = chartContainer.value.clientWidth /1.5 - margin.left - margin.right,
         height = 300 - margin.top - margin.bottom;
     d3.select(chartContainer.value).selectAll("*").remove();
@@ -80,7 +80,7 @@ const createHeatMap = (data) => {
         .select(".domain").remove();
 
     svg.value.append("text")
-        .attr("x", -margin.left)
+        .attr("x", -30)
         .attr("y", -10)
         .style("text-anchor", "start")
         .text("Year");
@@ -141,15 +141,17 @@ const createHeatMap = (data) => {
         .attr("x", 0)
         .attr("y", legendHeight + 5) // Position below the legend bar
         .attr("dy", "0.75em")
-        .style("text-anchor", "start")
-        .text(d3.min(colorScale.domain())); // Minimum value
+        .style("text-anchor", "middle")
+        // .text(d3.min(colorScale.domain())); 
+        .text("0");
 
     legend.append("text")
         .attr("x", legendWidth)
         .attr("y", legendHeight + 5) // Position below the legend bar
         .attr("dy", "0.75em")
-        .style("text-anchor", "end")
-        .text(d3.max(colorScale.domain())); // Maximum value
+        .style("text-anchor", "middle")
+        // .text(d3.max(colorScale.domain()));
+        .text("6600Fires");
 };
 
 

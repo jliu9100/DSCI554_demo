@@ -24,9 +24,13 @@ function drawSmoke(selection, data, width, height, x, xSubYear, y, yProportion, 
 
 export default async function timelapse(selector) {
   /* Create SVG */
-  const margin = { top: 50, right: 100, bottom: 60, left: 200 },
-    width = 1600 - margin.left - margin.right,
-    height = 600 - margin.top - margin.bottom;
+  // 删除selector里的所有svg
+  d3.select(selector).selectAll('svg').remove();
+  const divWidth = document.querySelector('#timelapse-chart').clientWidth;
+  const divHeight = 300;
+  const margin = { top: 40, right: 80, bottom: 60, left: 150 },
+    width = divWidth - margin.left - margin.right,
+    height = divHeight - margin.top - margin.bottom;
 
   const svg = d3.select(selector)
     .append('svg')
@@ -99,15 +103,18 @@ export default async function timelapse(selector) {
     .call(yAxis);
   svg.append('text')
     .attr('transform-box', 'fill-box')
-    .attr('transform', 'translate(' + (margin.left / 2) + ',' + (margin.top + (height * 4 / 5)) + ') rotate(-90)')
+    .attr('transform', 'translate(' + (margin.left / 3) + ',' + (divHeight -50) + ') rotate(-90)')
     .text('Area Burned Per Fire (Acres)')
+    .style('font-size', '15px')
     .attr('class', 'axis-label')
+    // fontsize
+    
 
   svg.append("svg:image")
     .attr('x', 100)
-    .attr('y', -40)
-    .attr('width', 600)
-    .attr('height', 600)
+    .attr('y', -60)
+    .attr('width', divWidth)
+    .attr('height', divHeight)
     .attr("xlink:href", "smoke.png")
 
   const circles = [0.5, 2, 5].map(d => d * Math.pow(10, 5));
@@ -126,7 +133,7 @@ export default async function timelapse(selector) {
 
   legend
     .append('text')
-    .text('Acres Burned')
+    .text('Acres')
     // .style('font-weight', 'bold')
     .attr('transform', 'translate(243, 80)')
 
@@ -147,7 +154,7 @@ export default async function timelapse(selector) {
     .attr('cx', 0)
     .attr('cy', 0)
     .attr('r', r(100000))
-    .attr('fill', 'blue')
+    .attr('fill', 'red')
     .attr('stroke', 'black')
     .attr('fill-opacity', '10%')
     .attr('transform', 'translate(45, 0)')
@@ -170,7 +177,7 @@ export default async function timelapse(selector) {
     .attr('cx', maxRadius)
     .attr('cy', d => 2 * maxRadius - r(d))
     .attr('r', d => r(d))
-    .attr('fill', 'blue')
+    .attr('fill', 'red')
     .attr('stroke', 'black')
     // .attr('stroke-width', '5px')
     .attr('fill-opacity', '10%')
@@ -197,17 +204,21 @@ export default async function timelapse(selector) {
     .append('foreignObject')
     .attr('x', 0)
     .attr('y', 0)
-    .attr('width', '100%')
-    .attr('height', '100%')
+    .attr('width', divWidth)
+    .attr('height', divHeight)  
     .append('xhtml:div')
     .attr('class', 'month-container')
+    .style('height', '50px')
+    // fontsize
+    .style('font-size', '80px')
+    
 
   function drawMonth(selector, monthIndex) {
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     const month = months[monthIndex];
     selector
       .html(`
-      <p>${month}</p>
+      <p style="height:100px">${month}</p>
           `)
   }
 

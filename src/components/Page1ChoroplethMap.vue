@@ -57,7 +57,7 @@ async function drawMap() {
     }
     const margin = { top: 20, right: 30, bottom: 30, left: 30 };
     const width = californiaMap.value.clientWidth - margin.left - margin.right || 500;
-    const height = californiaMap.value.clientWidth + margin.top + margin.bottom || 500;
+    const height = californiaMap.value.clientWidth - margin.top - margin.bottom || 500;
 
     const svg = d3.select(californiaMap.value)
         .append('svg')

@@ -12,7 +12,7 @@
     <el-menu-item index="/Page3">Risky Area Prediction</el-menu-item>
     <!--    <el-menu-item index="/Page4">Page4</el-menu-item>-->
     <el-menu-item index="/pack">Damage Pack (experimental)</el-menu-item>
-    <el-menu-item index="/timelapse">Timelapse (experimental)</el-menu-item>
+    <!-- <el-menu-item index="/timelapse">Timelapse (experimental)</el-menu-item> -->
   </el-menu>
 </template>
 
