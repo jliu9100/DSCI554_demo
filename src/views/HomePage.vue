@@ -7,9 +7,9 @@
       <h1 class="map-title">{{ title }}</h1>
       <YearSelector :initial-year="currentYear" :initialMonth="currentMonth" @update:yearMonth="updateYearMonth" />
       <MapView :dataPoints="filteredDataPoints" />
-      <TimelapseContainer />
-      <HomePageBarChart :dataPoints="dataPoints" />
       
+      <HomePageBarChart :dataPoints="dataPoints" />
+      <TimelapseContainer />
       <HomePageHeatMap :dataPoints="dataPoints" />
     </div>
   </div>

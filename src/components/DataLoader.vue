@@ -20,10 +20,13 @@ const loadData = async () => {
         // const keys = rawData.slice(0, 1000);
         const keys = rawData;
 
-        const dataPoints = keys.map(data => {
+        const dataPoints = keys
+        .filter(data => data.ignition_year && data.ignition_day)
+        .map(data => {
             const date = new Date(data.ignition_year, 0); // 创建一个日期对象，设置为当年的1月1日
             date.setDate(date.getDate() + data.ignition_day - 1); // 加上年中的天数
             const month = date.getMonth() + 1; // getMonth() 返回的月份是从0开始计数的，所以需要加1
+            
             return {
                 id: data.oid,
                 name: data.cause_description,
