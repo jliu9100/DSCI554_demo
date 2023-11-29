@@ -7,7 +7,9 @@
       <h1 class="map-title">{{ title }}</h1>
       <YearSelector :initial-year="currentYear" :initialMonth="currentMonth" @update:yearMonth="updateYearMonth" />
       <MapView :dataPoints="filteredDataPoints" />
+      <TimelapseContainer />
       <HomePageBarChart :dataPoints="dataPoints" />
+      
       <HomePageHeatMap :dataPoints="dataPoints" />
     </div>
   </div>
@@ -20,10 +22,12 @@ import MapView from '@/components/MapView.vue';
 import YearSelector from '@/components/YearSelector.vue';
 import HomePageBarChart from '@/components/HomePageBarChart.vue';
 import HomePageHeatMap from '@/components/HomePageHeatMap.vue';
+import TimelapseContainer from "@/components/TimelapseContainer.vue";
+
 
 const title = ref('CALIFORNIA WILDFIRES');
 
-const currentYear = ref(2005);
+const currentYear = ref(2015);
 const currentMonth = ref(new Date().getMonth() + 1);
 onMounted(() => {
   const storedYear = sessionStorage.getItem('selectedYear');
