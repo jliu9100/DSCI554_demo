@@ -15,28 +15,24 @@
 
       <el-col :span="8">
         <div v-if="dataPoints && dataPoints.length">
-          <h2>{{ subtitle1 }}</h2>
+          <h2>{{ subtitle2 }}</h2>
           <Page3DensityMap :dataPoints="null" @loading="handleMapLoading" @loaded="handleMapLoaded" />
         </div>
       </el-col>
 
-      <el-col :span="8">
-        <div v-if="dataPoints && dataPoints.length">
-          <h2>{{ subtitle1 }}</h2>
-          <Page3DensityMap :dataPoints="null" @loading="handleMapLoading" @loaded="handleMapLoaded" />
-        </div>
-      </el-col>
     </el-row>
   </div>
 </template>
   
 <script setup>
+// eslint-disable-next-line no-unused-vars
 import { ref, computed } from 'vue';
 import DataLoader from '@/components/DataLoader.vue';
 import Page3DensityMap from '@/components/Page3DensityMap.vue';
 
-const title = ref('Title');
-const subtitle1 = ref('Empty Map');
+const title = ref('Risky areas for wild fire in California');
+const subtitle1 = ref('Map of risky area for wild fire based on prediction for potential locations');
+const subtitle2 = ref('Map of risky area for wild fire based on data from different years');
 const dataPoints = ref([]);
 const isLoading1 = ref(true);
 

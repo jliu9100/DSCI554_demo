@@ -7,6 +7,7 @@ import * as d3 from 'd3';
 
 import { onMounted, ref, defineProps, defineEmits, onUnmounted } from 'vue';
 
+// eslint-disable-next-line no-unused-vars
 const props = defineProps({
     dataPoints: Array,
 });
@@ -61,18 +62,40 @@ async function drawMap() {
         .scale(4 * width)
         .translate([width / 2, height / 2]);
     const path = d3.geoPath().projection(projection);
-    const geojsonData = await d3.json('data/CaliforniaCountyBoundaries.geojson');
+
+  svg.append('defs')
+      .append('pattern')
+      .attr('id', 'rasterPattern')
+      .attr('patternUnits', 'userSpaceOnUse')
+      .attr('width', width)
+      .attr('height', height)
+      .append('image')
+      .attr('xlink:href', 'density_gradient.png')
+      .attr('width', width)
+      .attr('height', height)
+      .attr('x', 0)
+      .attr('y', 0)
+      .attr('class', 'raster-image');
+
+
+  const geojsonData = await d3.json('data/CaliforniaCountyBoundaries.geojson');
     svg.selectAll("path")
         .data(geojsonData.features)
         .enter()
         .append("path")
         .attr("d", path)
         .attr("stroke", "#000")
-        .attr("fill", "white")
+        .attr("fill", "url(#rasterPattern)")
         .attr("stroke-width", 1);
+
     emit('loaded');
 }
 
 </script>
 
-<style></style>
+<style>
+.raster-image {
+  mix-blend-mode: multiply;
+  background: linear-gradient(135deg, rgba(128, 0, 128, 0.7), rgba(0, 0, 255, 0.7));
+}
+</style>
