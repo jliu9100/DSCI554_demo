@@ -129,13 +129,16 @@ export default async function timelapse(selector) {
     .attr('height', maxRadius * 2 + 100)
     // .attr('stroke', 'black')
     .attr('fill-opacity', '0%')
-    .attr('transform', 'translate(-10, -90)')
+    // .attr('transform', 'translate(-10, -90)')
+    .attr("transform", `translate(${-margin.right }, ${-40})`);
+
 
   legend
     .append('text')
     .text('Acres')
     // .style('font-weight', 'bold')
-    .attr('transform', 'translate(243, 80)')
+    // .attr('transform', 'translate(243, 80)')
+    .attr("transform", `translate(${margin.right + 60 }, ${80})`);
 
   legend
     .append('text')
@@ -143,11 +146,13 @@ export default async function timelapse(selector) {
     .style('font-size', '4rem')
     .style('font-weight', '1')
     .attr('opacity', '60%')
-    .attr('transform', 'translate(210, 92)')
+    .attr("transform", `translate(${margin.right + 30 }, ${92})`);
+
 
   const leg = legend
     .append('g')
-    .attr('transform', 'translate(25, -40)')
+    // .attr('transform', 'translate(25, -40)')
+    .attr("transform", `translate(${-margin.right }, ${-40})`);
 
   leg
     .append('circle')
@@ -165,7 +170,7 @@ export default async function timelapse(selector) {
     .attr('transform', 'translate(80, 5)')
 
   const leg2 = legend.append('g')
-    .attr('transform', 'translate(20, 5)')
+  .attr("transform", `translate(${-margin.right }, ${5})`);
 
   const legendGroups = leg2
     .selectAll('g')

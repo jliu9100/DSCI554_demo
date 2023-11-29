@@ -43,7 +43,7 @@ const createChart = (data) => {
             };
         });
 
-    const margin = { top: 30, right: 70, bottom: 40, left: 150 }
+    const margin = { top: 30, right: 90, bottom: 40, left: 150 }
     const width = chartContainer.value.clientWidth - margin.left - margin.right;
     const height = 200;
     d3.select(chartContainer.value).selectAll("*").remove();
@@ -84,7 +84,7 @@ const createChart = (data) => {
 
     svg.value.append("text")
         .attr("transform", "rotate(-90)")
-        .attr("y", 0 - 120)
+        .attr("y", 0 - 100)
         .attr("x", 0 - (height / 2))
         .attr("dy", "1em")
         .style("text-anchor", "middle")
@@ -98,10 +98,13 @@ const createChart = (data) => {
 
     svg.value.append("text")
         .attr("transform", "rotate(-90)")
-        .attr("y", width + margin.right)
+        .attr("y", width + margin.right - 10)
         .attr("x", 0 - (height / 2))
         .attr("dy", "-0.8em")
+        
         .style("text-anchor", "middle")
+        .style('font-size', '15px')
+        .style("font-weight", "bold")
         .text("Cumulative Fire Size");
 
     // Bars
@@ -158,14 +161,14 @@ const createChart = (data) => {
 
     legend.append("rect")
         .attr("x", 0)
-        .attr("y", 20)
+        .attr("y", 15)
         .attr("width", 20)
         .attr("height", 10)
         .attr("fill", "var(--theme-color)");
 
     legend.append("text")
         .attr("x", 25)
-        .attr("y", 25)
+        .attr("y", 20)
         .attr("dy", "0.32em")
         .text("Number of Fires");
 };
@@ -174,7 +177,7 @@ const createChart = (data) => {
 <style scoped>
 .chart-container {
     width: 100%;
-    height: 500px;
+    height: 300px;
 }
 </style>
   

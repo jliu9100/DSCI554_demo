@@ -150,8 +150,8 @@ const createHeatMap = (data) => {
         .attr("y", legendHeight + 5) // Position below the legend bar
         .attr("dy", "0.75em")
         .style("text-anchor", "middle")
-        // .text(d3.max(colorScale.domain()));
-        .text("6600Fires");
+        .text(d3.max(colorScale.domain()));
+        // .text("6600Fires");
 };
 
 
