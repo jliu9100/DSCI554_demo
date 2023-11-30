@@ -1,6 +1,4 @@
 <template>
-  <!-- <Timelapse :data="data" :dataByMonth="dataByMonth" :years="years" :uniqueYears="uniqueYears" :acresBurned="acresBurned" -->
-    <!-- :maxIntraYearIndexByMonth="maxIntraYearIndexByMonth" /> -->
   <div ref="timelapseRef" id="timelapse-chart"></div>
     <Timelapse />
 </template>
@@ -22,10 +20,6 @@ const debounce = (fn, delay) => {
 
 
 onMounted(() => {
-  // timelapse("#timelapse-chart",
-  //   {
-
-  //   });
   window.addEventListener('resize', debounce(handleResize, 300));
 });
 
@@ -34,7 +28,6 @@ onUnmounted(() => {
 });
 
 const handleResize = () => {
-  // timelapse("#timelapse-chart");
 };
 </script>
 
