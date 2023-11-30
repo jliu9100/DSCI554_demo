@@ -8,10 +8,7 @@ import { usePackDataStore } from "@/stores/packData";
 onMounted(async () => {
   const store = usePackDataStore();
   await store.loadData();
-  let {
-    data,
-  }
-    = usePackDataStore();
+  let { data }  = usePackDataStore();
 
   data = toRaw(data);
 
