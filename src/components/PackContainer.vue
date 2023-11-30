@@ -1,16 +1,12 @@
 <template>
   <h1>Largest Fires By Decade (1990-2020)</h1>
   <div id="pack-chart"></div>
+  <Pack />
 </template>
 
 <script setup>
-import { onMounted } from "vue";
-import * as d3 from "d3";
-import pack from "./pack.js";
+import Pack from "./Pack.vue";
 
-onMounted(() => {
-  pack("#pack-chart");
-});
 </script>
 
 <script></script>
