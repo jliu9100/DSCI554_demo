@@ -1,12 +1,12 @@
 <template>
   <div ref="timelapseRef" id="timelapse-chart"></div>
-  <!-- <svg id="timelapse-chart" width="500" height="300"></svg> -->
+    <Timelapse />
 </template>
 
-<script setup>
-import { onMounted,watchEffect,onUnmounted } from "vue";
+<script async setup>
+import { onMounted, watchEffect, onUnmounted } from "vue";
 import * as d3 from "d3";
-import timelapse from "./timelapse.js";
+import Timelapse from "./Timelapse.vue";
 
 const debounce = (fn, delay) => {
   let timer = null;
@@ -20,7 +20,6 @@ const debounce = (fn, delay) => {
 
 
 onMounted(() => {
-  timelapse("#timelapse-chart");
   window.addEventListener('resize', debounce(handleResize, 300));
 });
 
@@ -29,7 +28,6 @@ onUnmounted(() => {
 });
 
 const handleResize = () => {
-    timelapse("#timelapse-chart");
 };
 </script>
 
