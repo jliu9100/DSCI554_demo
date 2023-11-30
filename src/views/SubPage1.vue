@@ -1,25 +1,25 @@
 <!-- src/views/SubPage1.vue -->
 <template>
-  <DataLoader @update:data="handleDataUpdate" />
+  <!-- <DataLoader @update:data="handleDataUpdate" /> -->
   <div v-loading.fullscreen.lock="isLoading1 || isLoading2">
     <h1>{{ title }}</h1>
 
 
     <el-row>
       <el-col :span="8">
-        <div v-if="dataPoints && dataPoints.length">
+        <!-- <div v-if="dataPoints && dataPoints.length"> -->
           <h2>{{ subtitle1 }}</h2>
-          <Page1ChoroplethMap :dataPoints="dataPoints" mapType="sum" :selectedCounty="selectedCounty" @loading="handleMapLoading(1)"
+          <Page1ChoroplethMap mapType="sum" :selectedCounty="selectedCounty" @loading="handleMapLoading(1)"
             @loaded="handleMapLoaded(1)" />
-        </div>
+        <!-- </div> -->
       </el-col>
 
       <el-col :span="8">
-        <div v-if="dataPoints && dataPoints.length">
+        <!-- <div v-if="dataPoints && dataPoints.length"> -->
           <h2>{{ subtitle2 }}</h2>
-          <Page1ChoroplethMap :dataPoints="dataPoints" mapType="count" :selectedCounty="selectedCounty" @loading="handleMapLoading(2)"
+          <Page1ChoroplethMap  mapType="count" :selectedCounty="selectedCounty" @loading="handleMapLoading(2)"
             @loaded="handleMapLoaded(2)" />
-        </div>
+        <!-- </div> -->
       </el-col>
 
 
@@ -51,7 +51,7 @@ const subtitle1 = ref('Cumulative Fire Size by County');
 const subtitle2 = ref('Number of Fires by County');
 const subtitle3 = ref('Where are you located?');
 
-const dataPoints = ref([]);
+// const dataPoints = ref([]);
 const isLoading1 = ref(true);
 const isLoading2 = ref(true);
 const countyNames = ref([
@@ -80,9 +80,9 @@ function handleSearch(searchQuery) {
 
 const selectedCounty = ref('')
 
-const handleDataUpdate = (updatedData) => {
-  dataPoints.value = updatedData;
-};
+// const handleDataUpdate = (updatedData) => {
+//   dataPoints.value = updatedData;
+// };
 
 const handleMapLoading = (loaderId) => {
   if (loaderId === 1) {
