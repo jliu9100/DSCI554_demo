@@ -9,6 +9,9 @@
         <HomePage />
       </div>
       <div class="section fp-auto-height-responsive">
+        <HomePageBarChart />
+      </div>
+      <div class="section fp-auto-height-responsive">
         <SubPage1 />
       </div>
       <div class="section fp-auto-height-responsive">
@@ -28,7 +31,6 @@
   <div v-if="!loaded">
     <LoadingPage />
   </div>
-
 </template>
 
 <script setup>
@@ -40,6 +42,8 @@ import Page3 from "@/views/Page3.vue";
 import TimelapsePage from "@/views/TimelapsePage.vue";
 import PackPage from "@/views/PackPage.vue";
 import LoadingPage from '@/views/LoadingPage.vue';
+import HomePageBarChart from '@/components/HomePageBarChart.vue';
+import HomePageHeatMap from '@/components/HomePageHeatMap.vue';
 import { computed, watchEffect, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { useTimelapseDataStore } from "@/stores/timelapseData";
@@ -81,10 +85,10 @@ watchEffect(() => {
 
 #fp-nav ul li a span,
 .fp-slidesNav ul li a span {
-    background: red !important;
+  background: red !important;
 }
 
-.section{
+.section {
   height: 100vh !important;
 }
 </style>

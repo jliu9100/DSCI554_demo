@@ -20,12 +20,12 @@ const props = defineProps({
   dataPoints: Array,
 });
 
-let { data }  = useGeneralDataStore();
+let { data } = useGeneralDataStore();
 let { causeCount, causeLevelDataAll, causeYearlyDataAll } = useCauseDataStore();
 data = toRaw(data);
 causeCount = toRaw(causeCount);
 causeLevelDataAll = toRaw(causeLevelDataAll);
-causeYearlyDataAll= toRaw(causeYearlyDataAll);
+causeYearlyDataAll = toRaw(causeYearlyDataAll);
 
 
 const emit = defineEmits(['loading', 'loaded']);
@@ -205,12 +205,13 @@ function drawPieChart(data, container) {
     .style('pointer-events', 'none');
 
   function showTooltip(event, data) {
+    const [x, y] = d3.pointer(event, d3.select(container).node());
     tooltip.transition()
       .duration(200)
       .style('opacity', 1);
     tooltip.html(`<div class="tooltip-container"><div class="tooltip-title">${data.name}</div><div class="tooltip-content">Count: ${data.count}<br/>Percentage: ${round(data.count / totalCount.value * 100, 2)}%</div></div>`)
-      .style('left', (event.pageX + 10) + 'px')
-      .style('top', (event.pageY + 10) + 'px')
+      .style('left', (x + 10) + 'px')
+      .style('top', (y + 10) + 'px')
 
   }
 

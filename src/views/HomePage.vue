@@ -5,10 +5,7 @@
     <h1 class="map-title">{{ title }}</h1>
     <YearSelector :initial-year="currentYear" :initialMonth="currentMonth" @update:yearMonth="updateYearMonth" />
     <MapView :currentMonth="currentMonth" :currentYear="currentYear" />
-
-    <!-- <HomePageBarChart /> -->
-    <!-- <TimelapseContainer />
-    <HomePageHeatMap /> -->
+    <HomePageHeatMap />
   </div>
 </template>
   

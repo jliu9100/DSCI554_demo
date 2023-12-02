@@ -8,7 +8,7 @@ import { usePackDataStore } from "@/stores/packData";
 onMounted(async () => {
   const store = usePackDataStore();
   await store.loadData();
-  let { data }  = usePackDataStore();
+  let { data } = usePackDataStore();
 
   data = toRaw(data);
 
@@ -30,7 +30,8 @@ onMounted(async () => {
   const zoom = d3.zoom().on('zoom', e => {
     g.attr('transform', e.transform);
   });
-  g.call(zoom);
+  g.call(zoom)
+    .call(zoom.transform, d3.zoomIdentity.scale(0.78));
 
   const hierarchy = d3.hierarchy(data)
     .sum(d => d.hasOwnProperty('acresBurned') ? d.acresBurned : 0);

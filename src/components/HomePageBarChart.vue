@@ -155,7 +155,7 @@ const createChart = (data) => {
         .attr("x", 25)
         .attr("y", 0)
         .attr("dy", "0.32em")
-        .text("Cumulative Fire Size");
+        // .text("Cumulative Fire Size");
 
     legend.append("rect")
         .attr("x", 0)
@@ -168,7 +168,7 @@ const createChart = (data) => {
         .attr("x", 25)
         .attr("y", 20)
         .attr("dy", "0.32em")
-        .text("Number of Fires");
+        // .text("Number of Fires");
 };
 </script>
   
