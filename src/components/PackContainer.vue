@@ -1,16 +1,12 @@
 <template>
-  <h1>Largest Fires By Decade (1990-2020)</h1>
+  <h1>Largest Fires By Decade</h1>
   <div id="pack-chart"></div>
+  <Pack />
 </template>
 
 <script setup>
-import { onMounted } from "vue";
-import * as d3 from "d3";
-import pack from "./pack.js";
+import Pack from "./Pack.vue";
 
-onMounted(() => {
-  pack("#pack-chart");
-});
 </script>
 
 <script></script>
@@ -35,4 +31,13 @@ onMounted(() => {
 div.tooltip-div p {
   margin: 5px;
 }
+</style>
+
+<style scoped>
+h1 {
+  opacity: 80%;
+  padding-left: 150px;
+  margin-top: 30px;
+}
+
 </style>

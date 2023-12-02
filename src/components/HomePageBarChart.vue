@@ -4,19 +4,20 @@
 </template>
   
 <script setup>
-import { onMounted, onUnmounted, ref, defineProps } from 'vue';
+import { onMounted, onUnmounted, ref, defineProps, toRaw } from 'vue';
 import * as d3 from 'd3';
 
-const props = defineProps({
-    dataPoints: Array
-});
+import { useGeneralDataStore } from "@/stores/generalData";
+let { data }  = useGeneralDataStore();
+data = toRaw(data);
+
 
 const chartContainer = ref(null);
 const svg = ref(null);
 onMounted(() => {
 
-    if (chartContainer.value && props.dataPoints.length) {
-        createChart(props.dataPoints);
+    if (chartContainer.value && data.length) {
+        createChart(data);
         window.addEventListener('resize', handleResize);
     }
 
@@ -29,7 +30,7 @@ onUnmounted(() => {
 const handleResize = () => {
     if (svg.value) {
         svg.value.remove();
-        createChart(props.dataPoints);
+        createChart(data);
     }
 };
 
@@ -139,7 +140,7 @@ const createChart = (data) => {
         .attr("stroke", "var(--theme-color-deep)");
 
     const legend = svg.value.append("g")
-        .attr("transform", `translate(${width - 220}, ${0})`);
+        .attr("transform", `translate(${width - 350}, ${0})`);
     legend.append("line")
         .attr("x1", 0)
         .attr("x2", 20)

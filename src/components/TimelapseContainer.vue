@@ -1,43 +1,41 @@
 <template>
   <div ref="timelapseRef" id="timelapse-chart"></div>
-  <!-- <svg id="timelapse-chart" width="500" height="300"></svg> -->
+    <Timelapse />
 </template>
 
-<script setup>
-import { onMounted,watchEffect,onUnmounted } from "vue";
+<script async setup>
+import { onMounted, watchEffect, onUnmounted } from "vue";
 import * as d3 from "d3";
-import timelapse from "./timelapse.js";
+import Timelapse from "./Timelapse.vue";
 
-const debounce = (fn, delay) => {
-  let timer = null;
-  return function () {
-    if (timer) {
-      clearTimeout(timer);
-    }
-    timer = setTimeout(fn, delay);
-  };
-};
+// const debounce = (fn, delay) => {
+//   let timer = null;
+//   return function () {
+//     if (timer) {
+//       clearTimeout(timer);
+//     }
+//     timer = setTimeout(fn, delay);
+//   };
+// };
 
 
-onMounted(() => {
-  timelapse("#timelapse-chart");
-  window.addEventListener('resize', debounce(handleResize, 300));
-});
+// onMounted(() => {
+//   window.addEventListener('resize', debounce(handleResize, 300));
+// });
 
-onUnmounted(() => {
-  window.removeEventListener('resize', handleResize);
-});
+// onUnmounted(() => {
+//   window.removeEventListener('resize', handleResize);
+// });
 
-const handleResize = () => {
-    timelapse("#timelapse-chart");
-};
+// const handleResize = () => {
+// };
 </script>
 
 <script></script>
 
 <style>
 #timelapse-chart {
-  width: 100%;
+  width: 70vw;
 }
 
 * {
@@ -106,8 +104,8 @@ div.tooltip-div p {
   fill: grey;
   font-weight: bold;
   font-size: 6rem;
-  opacity: 50%;
-  margin-left: 10rem;
-  margin-top: 5rem;
+  opacity: 45%;
+  margin-left: 0rem;
+  margin-top: 10rem;
 }
 </style>

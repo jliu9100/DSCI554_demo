@@ -51,7 +51,7 @@ async function drawMap() {
     }
     const margin = { top: 20, right: 30, bottom: 30, left: 30 };
     const width = californiaMap.value.clientWidth - margin.left - margin.right || 500;
-    const height = californiaMap.value.clientWidth + margin.top + margin.bottom || 500;
+    const height = californiaMap.value.clientWidth - 200 + margin.top + margin.bottom || 500;
 
     const svg = d3.select(californiaMap.value)
         .append('svg')
@@ -60,7 +60,7 @@ async function drawMap() {
 
     const projection = d3.geoMercator()
         .center([-120, 37])
-        .scale(4 * width)
+        .scale(4 * width * 0.7)
         .translate([width / 2, height / 2]);
     const path = d3.geoPath().projection(projection);
 

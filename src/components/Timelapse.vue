@@ -1,31 +1,64 @@
+<template></template>
+<script setup>
+import { defineProps, onMounted, toRaw } from 'vue';
+import { storeToRefs } from "pinia";
 import * as d3 from 'd3';
+import { useTimelapseDataStore } from "@/stores/timelapseData";
 
-/*
-get the total delay by month
-*/
+onMounted(async () => {
+  const store = useTimelapseDataStore();
+  await store.loadData();
+  let {
+    data,
+    dataByMonth,
+    years,
+    uniqueYears,
+    acresBurned,
+    maxIntraYearIndexByMonth,
+  }
+    = useTimelapseDataStore();
+  // = storeToRefs(useTimelapseDataStore());
 
-function drawSmoke(selection, data, width, height, x, xSubYear, y, yProportion, r) {
-  selection.selectAll('circle').remove();
-  selection.selectAll('circle')
-    .data(data)
-    .enter()
-    .append('circle')
-    .transition()
-    .duration(0)
-    .delay((d, i) => d.intraYearIndex * 30)
-    .attr('fill', 'red')
-    .attr('r', d => r(d.acresBurned))
-    .attr('cy', height - 5)
-    .attr('cx', d => x(d.year) + xSubYear(Math.random()))
-    .style('--height', d => y(d.acresBurned))
-    .style('--height-proportion', d => yProportion(d.acresBurned))
-    .attr('class', 'mooove')
-}
+  data = toRaw(data);
+  dataByMonth = toRaw(dataByMonth);
+  years = toRaw(years);
+  uniqueYears = toRaw(uniqueYears);
+  acresBurned = toRaw(acresBurned);
+  maxIntraYearIndexByMonth = toRaw(maxIntraYearIndexByMonth);
 
-export default async function timelapse(selector) {
+
+  // const props = defineProps({
+  //   data: Array,
+  //   dataByMonth: Array,
+  //   years: Array,
+  //   uniqueYears: Array,
+  //   acresBurned: Number,
+  //   maxIntraYearIndexByMonth: Array
+  // })
+  const selector = '#timelapse-chart';
+
+  function drawSmoke(selection, data, width, height, x, xSubYear, y, yProportion, r) {
+    // return
+    selection.selectAll('circle').remove();
+    selection.selectAll('circle')
+      .data(data)
+      .enter()
+      .append('circle')
+      .transition()
+      .duration(0)
+      .delay((d, i) => d.intraYearIndex * 30)
+      .attr('fill', 'red')
+      .attr('r', d => r(d.acresBurned))
+      .attr('cy', height - 5)
+      .attr('cx', d => x(d.year) + xSubYear(Math.random()))
+      .style('--height', d => y(d.acresBurned))
+      .style('--height-proportion', d => yProportion(d.acresBurned))
+      .attr('class', 'mooove')
+  }
+
   d3.select(selector).selectAll('svg').remove();
   const divWidth = document.querySelector('#timelapse-chart').clientWidth;
-  const divHeight = 300;
+  const divHeight = 450;
   const margin = { top: 40, right: 80, bottom: 60, left: 150 },
     width = divWidth - margin.left - margin.right,
     height = divHeight - margin.top - margin.bottom;
@@ -38,16 +71,6 @@ export default async function timelapse(selector) {
   const g = svg.append('g')
     .attr('transform',
       `translate(${margin.left}, ${margin.top})`);
-
-  const data = await d3.json('timelapse.json');
-  const data_by_month = await d3.json('timelapse_by_month.json');
-
-  const years = data.map(d => d.year)
-  const uniqueYears = [...new Set(years)].sort(d3.ascending);
-  const acresBurned = data.map(d => d.acresBurned);
-  var maxIntraYearIndexByMonth = data_by_month.map(
-    monthList => Math.max(
-      ...monthList.map(d => d.intraYearIndex)));
 
   // Generate axial scales
   const x = d3.scalePoint(
@@ -99,12 +122,12 @@ export default async function timelapse(selector) {
     .call(yAxis);
   svg.append('text')
     .attr('transform-box', 'fill-box')
-    .attr('transform', 'translate(' + (margin.left / 3) + ',' + (divHeight -50) + ') rotate(-90)')
+    .attr('transform', 'translate(' + (margin.left / 3) + ',' + (divHeight - 50) + ') rotate(-90)')
     .text('Area Burned Per Fire (Acres)')
     .style('font-size', '15px')
     .attr('class', 'axis-label')
-    // fontsize
-    
+  // fontsize
+
 
   svg.append("svg:image")
     .attr('x', 100)
@@ -117,7 +140,7 @@ export default async function timelapse(selector) {
   const maxRadius = r(Math.max(...circles));
   const legend = svg
     .append('g')
-    .style('transform', 'translate(1200px, 100px)')
+    .style('transform', 'translate(700px, 90px)')
 
   legend
     .append('rect')
@@ -126,7 +149,7 @@ export default async function timelapse(selector) {
     // .attr('stroke', 'black')
     .attr('fill-opacity', '0%')
     // .attr('transform', 'translate(-10, -90)')
-    .attr("transform", `translate(${-margin.right }, ${-40})`);
+    .attr("transform", `translate(${-margin.right}, ${-40})`);
 
 
   legend
@@ -134,7 +157,7 @@ export default async function timelapse(selector) {
     .text('Acres')
     // .style('font-weight', 'bold')
     // .attr('transform', 'translate(243, 80)')
-    .attr("transform", `translate(${margin.right + 60 }, ${80})`);
+    .attr("transform", `translate(${margin.right + 60}, ${80})`);
 
   legend
     .append('text')
@@ -142,13 +165,13 @@ export default async function timelapse(selector) {
     .style('font-size', '4rem')
     .style('font-weight', '1')
     .attr('opacity', '60%')
-    .attr("transform", `translate(${margin.right + 30 }, ${92})`);
+    .attr("transform", `translate(${margin.right + 30}, ${92})`);
 
 
   const leg = legend
     .append('g')
     // .attr('transform', 'translate(25, -40)')
-    .attr("transform", `translate(${-margin.right }, ${-40})`);
+    .attr("transform", `translate(${-margin.right}, ${-40})`);
 
   leg
     .append('circle')
@@ -166,7 +189,7 @@ export default async function timelapse(selector) {
     .attr('transform', 'translate(80, 5)')
 
   const leg2 = legend.append('g')
-  .attr("transform", `translate(${-margin.right }, ${5})`);
+    .attr("transform", `translate(${-margin.right}, ${5})`);
 
   const legendGroups = leg2
     .selectAll('g')
@@ -203,16 +226,17 @@ export default async function timelapse(selector) {
 
   const monthGroup = svg
     .append('foreignObject')
+    // .attr('transform', 'translate(-100px, 0px)')
     .attr('x', 0)
     .attr('y', 0)
     .attr('width', divWidth)
-    .attr('height', divHeight)  
+    .attr('height', divHeight)
     .append('xhtml:div')
     .attr('class', 'month-container')
     .style('height', '50px')
     // fontsize
-    .style('font-size', '80px')
-    
+    .style('font-size', '60px')
+
 
   function drawMonth(selector, monthIndex) {
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -228,11 +252,11 @@ export default async function timelapse(selector) {
     drawMonth(monthGroup, monthIndex)
 
     // Draw data points
-    drawSmoke(g, data_by_month[monthIndex], width, height, x, xSubYear, y, yProportion, r);
+    drawSmoke(g, dataByMonth[monthIndex], width, height, x, xSubYear, y, yProportion, r);
 
     const nextMonthIndex = ((monthIndex + 1) % 12);
     setTimeout(doThing.bind(null, nextMonthIndex), maxIntraYearIndexByMonth[monthIndex] * 40);
   }
   doThing(0);
-
-}
+});
+</script>

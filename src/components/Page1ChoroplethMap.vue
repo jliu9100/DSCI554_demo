@@ -5,10 +5,13 @@
 <script setup>
 import * as d3 from 'd3';
 
-import { onMounted, ref, defineProps, defineEmits, onUnmounted,watch } from 'vue';
+import { onMounted, ref, defineProps, defineEmits, onUnmounted,watch, toRaw } from 'vue';
+
+import { useGeneralDataStore } from "@/stores/generalData";
+let { data }  = useGeneralDataStore();
+data = toRaw(data);
 
 const props = defineProps({
-    dataPoints: Array,
     mapType: String,
     selectedCounty: String
 });
@@ -90,7 +93,7 @@ async function drawMap() {
         } catch (error) {
             dataByCounty = {};
             if (props.mapType === 'sum') {
-                for (const point of props.dataPoints) {
+                for (const point of data) {
 
                     if (point.county) {
                         dataByCounty[point.county] = (dataByCounty[point.county] || 0) + point.acreage;
@@ -103,7 +106,7 @@ async function drawMap() {
                 }
                 sessionStorage.setItem("acreageByCounty", JSON.stringify(dataByCounty));
             } else {
-                for (const point of props.dataPoints) {
+                for (const point of data) {
 
                     if (point.county) {
                         dataByCounty[point.county] = (dataByCounty[point.county] || 0) + 1;
