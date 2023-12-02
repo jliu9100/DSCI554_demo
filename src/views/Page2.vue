@@ -33,4 +33,12 @@ const handleMapLoaded = () => {
   isLoading.value = false;
 };
 </script>
+
+<style scoped>
+h1 {
+  padding-left: 40px;
+  opacity: 90%;
+  padding-top: 15px;
+}
+</style>
   

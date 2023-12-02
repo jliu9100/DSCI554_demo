@@ -99,6 +99,7 @@ function drawPieChart(data, container) {
     .join('path')
     .attr('fill', d => color(d.data.name))
     .attr('d', arc)
+    .attr('class', d => d.data.name)
     .on('click', async (event, d) => {
       const clickedArc = d3.select(event.currentTarget);
       const isClicked = clickedArc.classed('clicked');
@@ -130,6 +131,7 @@ function drawPieChart(data, container) {
         d3.select(subContainer2.value).selectAll('*').remove();
       }
     });
+    // .dispatch('click');
 
   function loadCauseData(data, causeName) {
     return data.map(item => {
@@ -205,7 +207,12 @@ function drawPieChart(data, container) {
     .style('pointer-events', 'none');
 
   function showTooltip(event, data) {
-    const [x, y] = d3.pointer(event, d3.select(container).node());
+    let [x, y] = d3.pointer(event, d3.select(container).node());
+    if (isNaN(x)) {
+      x = 550;
+      y = 200;
+    }
+    console.log(x, y);
     tooltip.transition()
       .duration(200)
       .style('opacity', 1);
@@ -273,6 +280,7 @@ function drawPieChart(data, container) {
       .duration(200)
       .style('opacity', 0);
   }
+  console.log(svg.select('.Miscellaneous').dispatch('click'))
   emit('loaded');
 }
 
@@ -308,5 +316,10 @@ function drawPieChart(data, container) {
   top: 20vw;
   right: 5vw;
   width: 30%;
+}
+
+.controls {
+  margin-left: 40px;
+  width: 30vw;
 }
 </style>

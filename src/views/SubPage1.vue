@@ -8,7 +8,7 @@
     <el-row>
       <el-col :span="8">
         <!-- <div v-if="dataPoints && dataPoints.length"> -->
-          <h2>{{ subtitle1 }}</h2>
+          <h2 class="x">{{ subtitle1 }}</h2>
           <Page1ChoroplethMap mapType="sum" :selectedCounty="selectedCounty" @loading="handleMapLoading(1)"
             @loaded="handleMapLoaded(1)" />
         <!-- </div> -->
@@ -16,7 +16,7 @@
 
       <el-col :span="8">
         <!-- <div v-if="dataPoints && dataPoints.length"> -->
-          <h2>{{ subtitle2 }}</h2>
+          <h2 class="x">{{ subtitle2 }}</h2>
           <Page1ChoroplethMap  mapType="count" :selectedCounty="selectedCounty" @loading="handleMapLoading(2)"
             @loaded="handleMapLoaded(2)" />
         <!-- </div> -->
@@ -47,7 +47,7 @@ import DataLoader from '@/components/DataLoader.vue';
 import Page1ChoroplethMap from '@/components/Page1ChoroplethMap.vue';
 
 const title = ref('Wildfire Acres Burned in California, 2005-2015');
-const subtitle1 = ref('Cumulative Fire Size by County');
+const subtitle1 = ref('Cumulative Fire Size by County (Acres)');
 const subtitle2 = ref('Number of Fires by County');
 const subtitle3 = ref('Where are you located?');
 
@@ -101,4 +101,15 @@ const handleMapLoaded = (loaderId) => {
 };
 </script>
   
-<style></style>
+<style scoped>
+h1 {
+  padding-left: 40px;
+  opacity: 90%;
+  padding-top: 15px;
+}
+h2.x {
+  padding-left: 40px;
+  padding-right: 50px;
+  opacity: 65%;
+}
+</style>
