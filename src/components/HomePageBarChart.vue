@@ -140,7 +140,7 @@ const createChart = (data) => {
         .attr("stroke", "var(--theme-color-deep)");
 
     const legend = svg.value.append("g")
-        .attr("transform", `translate(${width - 300}, ${0})`);
+        .attr("transform", `translate(${width - 350}, ${0})`);
     legend.append("line")
         .attr("x1", 0)
         .attr("x2", 20)
