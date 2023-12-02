@@ -1,7 +1,7 @@
 <!-- src/views/SubPage1.vue -->
 <template>
   <!-- <DataLoader @update:data="handleDataUpdate" /> -->
-  <div v-loading.fullscreen.lock="isLoading1">
+  <div v-loading.fullscreen.lock="isLoading1" style="height=80vh">
     <h1>{{ title }}</h1>
 
 
@@ -51,4 +51,15 @@ const handleMapLoaded = () => {
 };
 </script>
   
-<style></style>
+<style scoped>
+h1 {
+  padding-left: 40px;
+  opacity: 90%;
+  padding-top: 15px;
+}
+h2 {
+  padding-left: 40px;
+  padding-right: 50px;
+  opacity: 65%;
+}
+</style>

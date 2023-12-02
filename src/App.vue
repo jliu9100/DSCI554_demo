@@ -56,7 +56,7 @@ const options = ref({
   touchSensitivity: 1,
   // menu: true,
   navigation: true,
-  // scrollOverflow: false,
+  scrollOverflow: false,
   bigSectionsDestination: 'top',
   // autoScrolling: false
 })
