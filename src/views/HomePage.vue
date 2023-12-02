@@ -1,11 +1,28 @@
 <!-- src/views/HomePage.vue -->
 <template>
   <!-- <DataLoader @update:data="handleDataUpdate" /> -->
-  <div class="map-container">
-    <h1 class="map-title">{{ title }}</h1>
-    <YearSelector :initial-year="currentYear" :initialMonth="currentMonth" @update:yearMonth="updateYearMonth" />
-    <MapView :currentMonth="currentMonth" :currentYear="currentYear" />
-    <HomePageHeatMap />
+  <div class="cont">
+    <div class="map-container">
+      <HomePageHeatMap />
+      <!-- <h1 class="map-title">{{ title }}</h1> -->
+      <YearSelector :initial-year="currentYear" :initialMonth="currentMonth" @update:yearMonth="updateYearMonth" />
+      <MapView :currentMonth="currentMonth" :currentYear="currentYear" />
+    </div>
+    <div class="cardcont">
+      <div class="card">
+        <h2>Wildfires By Month</h2>
+        <p>
+        The severity of wildfire burns, as well as the time of year that wildfires burn, has evolved over the last 20
+        years.
+        </p>
+        <p>
+        Use the month selector to explore the wildfire occurences in a given month.
+        </p>
+        <p>
+        Observe, with the heat map on the left, how the intensity of wildfire burns in the shoulder season, March-May and September-December, has increased in recent years.
+        </p>
+      </div>
+    </div>
   </div>
 </template>
   
@@ -51,6 +68,7 @@ const updateYearMonth = (yearMonth) => {
 <style>
 .map-container {
   position: relative;
+  width: 65vw;
 }
 
 .map-title {
@@ -80,6 +98,38 @@ const updateYearMonth = (yearMonth) => {
   bottom: 0;
   left: 0;
   z-index: 1000;
-  width: 40%;
+  width: 80%;
+}
+
+.cont {
+  display: flex;
+}
+
+.cardcont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 30vw;
+}
+
+.card {
+  padding-left: 20px;
+  padding-right: 13px;
+  width: 20vw;
+  height: 50vh;
+  /* Add shadows to create the "card" effect */
+  box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+}
+
+.card p {
+
+  font-size: 12px;
+}
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+  box-shadow: 4px 8px 16px 4px rgba(0, 0, 0, 0.2);
 }
 </style>

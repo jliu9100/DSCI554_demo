@@ -40,8 +40,8 @@ const maxSize = 40;
 const minAcreage = ref(0);
 const maxAcreage = ref(0);
 
-const zoom = ref(5);
-const center = ref([36.7783, -119.4179]);
+const zoom = ref(4.5);
+const center = ref([36.7783, -119.4179 - 10]);
 const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 const attribution = '&copy; <a target="_blank" href="http://osm.org/copyright">CaliforniaMap</a>';
 
