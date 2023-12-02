@@ -12,7 +12,7 @@
         <PackPage />
       </div>
       <div class="section fp-auto-height-responsive">
-      <BarPage />
+        <BarPage />
       </div>
       <div class="section fp-auto-height-responsive">
         <SubPage1 />
@@ -91,5 +91,8 @@ watchEffect(() => {
 
 .section {
   height: 100vh !important;
+}
+.wrp {
+  height: 90vh;
 }
 </style>

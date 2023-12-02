@@ -35,8 +35,7 @@ import Timelapse from "./Timelapse.vue";
 
 <style>
 #timelapse-chart {
-  width: 80vw;
-  height: 80vh;
+  width: 70vw;
 }
 
 * {

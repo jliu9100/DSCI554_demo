@@ -58,7 +58,7 @@ onMounted(async () => {
 
   d3.select(selector).selectAll('svg').remove();
   const divWidth = document.querySelector('#timelapse-chart').clientWidth;
-  const divHeight = 400;
+  const divHeight = 450;
   const margin = { top: 40, right: 80, bottom: 60, left: 150 },
     width = divWidth - margin.left - margin.right,
     height = divHeight - margin.top - margin.bottom;
@@ -140,7 +140,7 @@ onMounted(async () => {
   const maxRadius = r(Math.max(...circles));
   const legend = svg
     .append('g')
-    .style('transform', 'translate(1000px, 80px)')
+    .style('transform', 'translate(700px, 90px)')
 
   legend
     .append('rect')
@@ -235,7 +235,7 @@ onMounted(async () => {
     .attr('class', 'month-container')
     .style('height', '50px')
     // fontsize
-    .style('font-size', '100px')
+    .style('font-size', '60px')
 
 
   function drawMonth(selector, monthIndex) {
