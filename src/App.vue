@@ -9,13 +9,13 @@
         <HomePage />
       </div>
       <div class="section fp-auto-height-responsive">
+        <PackPage />
+      </div>
+      <div class="section fp-auto-height-responsive">
         <HomePageBarChart />
       </div>
       <div class="section fp-auto-height-responsive">
         <SubPage1 />
-      </div>
-      <div class="section fp-auto-height-responsive">
-        <PackPage />
       </div>
       <div class="section fp-auto-height-responsive">
         <Page2 />

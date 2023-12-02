@@ -1,5 +1,5 @@
 <template>
-  <h1>Largest Fires By Decade (1990-2020)</h1>
+  <h2>Largest Fires By Decade</h2>
   <div id="pack-chart"></div>
   <Pack />
 </template>
@@ -31,4 +31,12 @@ import Pack from "./Pack.vue";
 div.tooltip-div p {
   margin: 5px;
 }
+</style>
+
+<style scoped>
+h2 {
+  padding-left: 200px;
+  margin-top: 30px;
+}
+
 </style>

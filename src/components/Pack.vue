@@ -31,7 +31,7 @@ onMounted(async () => {
     g.attr('transform', e.transform);
   });
   g.call(zoom)
-    .call(zoom.transform, d3.zoomIdentity.scale(0.78));
+    .call(zoom.transform, d3.zoomIdentity.translate(0, -30).scale(0.75));
 
   const hierarchy = d3.hierarchy(data)
     .sum(d => d.hasOwnProperty('acresBurned') ? d.acresBurned : 0);

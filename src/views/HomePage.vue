@@ -10,7 +10,7 @@
     </div>
     <div class="cardcont">
       <div class="card">
-        <h2>Wildfires By Month</h2>
+        <h2>Longer Fire Seasons</h2>
         <p>
         The severity of wildfire burns, as well as the time of year that wildfires burn, has evolved over the last 20
         years.
@@ -110,14 +110,15 @@ const updateYearMonth = (yearMonth) => {
   justify-content: center;
   align-items: center;
 
-  width: 30vw;
+  width: 34vw;
+  margin-right: 50px;
 }
 
 .card {
   padding-left: 20px;
   padding-right: 13px;
-  width: 20vw;
-  height: 50vh;
+  width: 24vw;
+  height: 54vh;
   /* Add shadows to create the "card" effect */
   box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.2);
   transition: 0.3s;
