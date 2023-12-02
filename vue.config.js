@@ -1,13 +1,24 @@
-const { defineConfig } = require('@vue/cli-service')
-module.exports = defineConfig({
-  transpileDependencies: true,
+// const { defineConfig } = require('@vue/cli-service')
+// module.exports = defineConfig({
+//   transpileDependencies: true,
+//   devServer: {
+//       overlay: {
+//         warnings: false,
+//         errors: false
+//       }
+//   },
+//   lintOnSave: false
+// })
+
+// module.exports = {
+//   devServer: {
+//     overlay: false,
+//   }
+// }
+module.exports = {
   devServer: {
     client: {
-      overlay: {
-        warnings: false,
-        errors: true,
-      }
-    }
+      overlay: false
+    },
   },
-  lintOnSave: false
-})
+};
