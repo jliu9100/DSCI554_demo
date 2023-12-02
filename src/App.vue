@@ -12,7 +12,7 @@
         <PackPage />
       </div>
       <div class="section fp-auto-height-responsive">
-        <HomePageBarChart />
+      <BarPage />
       </div>
       <div class="section fp-auto-height-responsive">
         <SubPage1 />
@@ -42,6 +42,7 @@ import Page3 from "@/views/Page3.vue";
 import TimelapsePage from "@/views/TimelapsePage.vue";
 import PackPage from "@/views/PackPage.vue";
 import LoadingPage from '@/views/LoadingPage.vue';
+import BarPage from '@/views/BarPage.vue';
 import HomePageBarChart from '@/components/HomePageBarChart.vue';
 import HomePageHeatMap from '@/components/HomePageHeatMap.vue';
 import { computed, watchEffect, ref } from 'vue';

@@ -1,5 +1,5 @@
 <template>
-  <h2>Largest Fires By Decade</h2>
+  <h1>Largest Fires By Decade</h1>
   <div id="pack-chart"></div>
   <Pack />
 </template>
@@ -34,8 +34,9 @@ div.tooltip-div p {
 </style>
 
 <style scoped>
-h2 {
-  padding-left: 200px;
+h1 {
+  opacity: 70%;
+  padding-left: 150px;
   margin-top: 30px;
 }
 

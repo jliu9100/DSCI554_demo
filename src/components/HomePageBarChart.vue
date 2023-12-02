@@ -140,7 +140,7 @@ const createChart = (data) => {
         .attr("stroke", "var(--theme-color-deep)");
 
     const legend = svg.value.append("g")
-        .attr("transform", `translate(${width - 220}, ${0})`);
+        .attr("transform", `translate(${width - 300}, ${0})`);
     legend.append("line")
         .attr("x1", 0)
         .attr("x2", 20)
@@ -155,7 +155,7 @@ const createChart = (data) => {
         .attr("x", 25)
         .attr("y", 0)
         .attr("dy", "0.32em")
-        // .text("Cumulative Fire Size");
+        .text("Cumulative Fire Size");
 
     legend.append("rect")
         .attr("x", 0)
@@ -168,7 +168,7 @@ const createChart = (data) => {
         .attr("x", 25)
         .attr("y", 20)
         .attr("dy", "0.32em")
-        // .text("Number of Fires");
+        .text("Number of Fires");
 };
 </script>
   
