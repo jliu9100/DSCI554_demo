@@ -64,6 +64,6 @@ import HomePageBarChart from '@/components/HomePageBarChart.vue';
 }
 h1 {
   padding-left: 30px;
-  opacity: 70%;
+  opacity: 80%;
 }
 </style>

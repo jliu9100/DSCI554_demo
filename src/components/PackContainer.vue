@@ -35,7 +35,7 @@ div.tooltip-div p {
 
 <style scoped>
 h1 {
-  opacity: 70%;
+  opacity: 80%;
   padding-left: 150px;
   margin-top: 30px;
 }
