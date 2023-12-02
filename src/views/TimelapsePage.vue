@@ -1,6 +1,6 @@
 <!-- src/views/TimelapsePage.vue -->
 <template>
-  <div>
+  <div class="wrp">
     <h1>Timelapse</h1>
     <TimelapseContainer />
   </div>
@@ -15,3 +15,10 @@ export default {
   name: "TimelapsePage",
 };
 </script>
+
+<style>
+.wrp {
+  height: 90vh;
+
+}
+</style>
