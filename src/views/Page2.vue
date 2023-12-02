@@ -16,7 +16,6 @@ import DataLoader from '@/components/DataLoader.vue';
 import Page2PieChart from '@/components/Page2PieChart.vue';
 
 const dataPoints = ref([]);
-// Wildfire Causes 的分布
 const title = ref('Wildfire Causes in California, 2005-2015');
 const isLoading = ref(true);
 const handleDataUpdate = (updatedData) => {

@@ -43,7 +43,7 @@ const createChart = (data) => {
             };
         });
 
-    const margin = { top: 30, right: 70, bottom: 40, left: 150 }
+    const margin = { top: 30, right: 90, bottom: 40, left: 150 }
     const width = chartContainer.value.clientWidth - margin.left - margin.right;
     const height = 200;
     d3.select(chartContainer.value).selectAll("*").remove();
@@ -55,7 +55,6 @@ const createChart = (data) => {
         .append("g")
         .attr("transform", `translate(${margin.left},${margin.top})`);
 
-    // X axis
     const x = d3.scaleBand()
         .domain(dataByYear.map(d => d.year))
         .range([0, width])
@@ -70,7 +69,6 @@ const createChart = (data) => {
         .attr("x", -10)
         .attr("y", -3);
 
-    // Y axis
     const yBar = d3.scaleLinear()
         .domain([0, d3.max(dataByYear, d => d.count) + 10])
         .range([height, 0]);
@@ -84,7 +82,7 @@ const createChart = (data) => {
 
     svg.value.append("text")
         .attr("transform", "rotate(-90)")
-        .attr("y", 0 - 120)
+        .attr("y", 0 - 100)
         .attr("x", 0 - (height / 2))
         .attr("dy", "1em")
         .style("text-anchor", "middle")
@@ -98,13 +96,15 @@ const createChart = (data) => {
 
     svg.value.append("text")
         .attr("transform", "rotate(-90)")
-        .attr("y", width + margin.right)
+        .attr("y", width + margin.right - 10)
         .attr("x", 0 - (height / 2))
         .attr("dy", "-0.8em")
+        
         .style("text-anchor", "middle")
+        .style('font-size', '15px')
+        .style("font-weight", "bold")
         .text("Cumulative Fire Size");
 
-    // Bars
     svg.value.selectAll(".bar")
         .data(dataByYear)
         .join("rect")
@@ -119,12 +119,12 @@ const createChart = (data) => {
         .data(dataByYear)
         .join("text")
         .attr("class", "bar-text")
-        .attr("x", d => x(d.year) + x.bandwidth() / 2) // 将文本定位在条形图的中心
-        .attr("y", d => yBar(d.count) - 5) // 将文本放置在条形图的上方，这里的 -5 是一个小的偏移量
-        .attr("text-anchor", "middle") // 居中对齐文本
-        .text(d => d.count) // 设置要显示的文本
-        .attr("fill", "black") // 设置文本颜色
-        .attr("font-size", "10px"); // 设置字体大小
+        .attr("x", d => x(d.year) + x.bandwidth() / 2) 
+        .attr("y", d => yBar(d.count) - 5) 
+        .attr("text-anchor", "middle") 
+        .text(d => d.count) 
+        .attr("fill", "black") 
+        .attr("font-size", "10px"); 
         
     const line = d3.line()
         .x(d => x(d.year) + x.bandwidth() / 2)
@@ -158,14 +158,14 @@ const createChart = (data) => {
 
     legend.append("rect")
         .attr("x", 0)
-        .attr("y", 20)
+        .attr("y", 15)
         .attr("width", 20)
         .attr("height", 10)
         .attr("fill", "var(--theme-color)");
 
     legend.append("text")
         .attr("x", 25)
-        .attr("y", 25)
+        .attr("y", 20)
         .attr("dy", "0.32em")
         .text("Number of Fires");
 };
@@ -174,7 +174,7 @@ const createChart = (data) => {
 <style scoped>
 .chart-container {
     width: 100%;
-    height: 500px;
+    height: 300px;
 }
 </style>
   

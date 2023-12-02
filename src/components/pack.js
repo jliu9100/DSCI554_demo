@@ -2,7 +2,6 @@ import * as d3 from 'd3';
 
 
 export default async function pack(selector) {
-  /* Create SVG */
   const margin = { top: 10, right: 30, bottom: 60, left: 100 },
     width = 1000 - margin.left - margin.right,
     height = 600 - margin.top - margin.bottom;
@@ -12,7 +11,6 @@ export default async function pack(selector) {
     .attr('width', width + margin.left + margin.right)
     .attr('height', height + margin.top + margin.bottom)
 
-  /* Add working region inside margins */
   const g = svg.append('g')
     .attr('transform',
       `translate(${margin.left}, ${margin.top})`)

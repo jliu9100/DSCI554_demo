@@ -7,9 +7,9 @@
       <h1 class="map-title">{{ title }}</h1>
       <YearSelector :initial-year="currentYear" :initialMonth="currentMonth" @update:yearMonth="updateYearMonth" />
       <MapView :dataPoints="filteredDataPoints" />
-      <TimelapseContainer />
-      <HomePageBarChart :dataPoints="dataPoints" />
       
+      <HomePageBarChart :dataPoints="dataPoints" />
+      <TimelapseContainer />
       <HomePageHeatMap :dataPoints="dataPoints" />
     </div>
   </div>
@@ -57,7 +57,6 @@ const filteredDataPoints = computed(() => {
 
 const updateYearMonth = (yearMonth) => {
   const { year, month } = yearMonth;
-  console.log("updateYearMonth: ", year, month);
   currentYear.value = year;
   currentMonth.value = month;
   sessionStorage.setItem('selectedYear', year);

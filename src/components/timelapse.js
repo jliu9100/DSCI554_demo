@@ -23,8 +23,6 @@ function drawSmoke(selection, data, width, height, x, xSubYear, y, yProportion, 
 }
 
 export default async function timelapse(selector) {
-  /* Create SVG */
-  // 删除selector里的所有svg
   d3.select(selector).selectAll('svg').remove();
   const divWidth = document.querySelector('#timelapse-chart').clientWidth;
   const divHeight = 300;
@@ -37,7 +35,6 @@ export default async function timelapse(selector) {
     .attr('width', width + margin.left + margin.right)
     .attr('height', height + margin.top + margin.bottom)
 
-  /* Add working region inside margins */
   const g = svg.append('g')
     .attr('transform',
       `translate(${margin.left}, ${margin.top})`);
@@ -45,7 +42,6 @@ export default async function timelapse(selector) {
   const data = await d3.json('timelapse.json');
   const data_by_month = await d3.json('timelapse_by_month.json');
 
-  // Reformat data
   const years = data.map(d => d.year)
   const uniqueYears = [...new Set(years)].sort(d3.ascending);
   const acresBurned = data.map(d => d.acresBurned);
@@ -129,13 +125,16 @@ export default async function timelapse(selector) {
     .attr('height', maxRadius * 2 + 100)
     // .attr('stroke', 'black')
     .attr('fill-opacity', '0%')
-    .attr('transform', 'translate(-10, -90)')
+    // .attr('transform', 'translate(-10, -90)')
+    .attr("transform", `translate(${-margin.right }, ${-40})`);
+
 
   legend
     .append('text')
     .text('Acres')
     // .style('font-weight', 'bold')
-    .attr('transform', 'translate(243, 80)')
+    // .attr('transform', 'translate(243, 80)')
+    .attr("transform", `translate(${margin.right + 60 }, ${80})`);
 
   legend
     .append('text')
@@ -143,11 +142,13 @@ export default async function timelapse(selector) {
     .style('font-size', '4rem')
     .style('font-weight', '1')
     .attr('opacity', '60%')
-    .attr('transform', 'translate(210, 92)')
+    .attr("transform", `translate(${margin.right + 30 }, ${92})`);
+
 
   const leg = legend
     .append('g')
-    .attr('transform', 'translate(25, -40)')
+    // .attr('transform', 'translate(25, -40)')
+    .attr("transform", `translate(${-margin.right }, ${-40})`);
 
   leg
     .append('circle')
@@ -165,7 +166,7 @@ export default async function timelapse(selector) {
     .attr('transform', 'translate(80, 5)')
 
   const leg2 = legend.append('g')
-    .attr('transform', 'translate(20, 5)')
+  .attr("transform", `translate(${-margin.right }, ${5})`);
 
   const legendGroups = leg2
     .selectAll('g')

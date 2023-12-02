@@ -22,28 +22,26 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-    window.removeEventListener('resize', handleResize); // Clean up resize listener
+    window.removeEventListener('resize', handleResize); 
 });
 
 const handleResize = () => {
     if (svg.value) {
-        // Remove the existing SVG to redraw it
         svg.value.remove();
-        createHeatMap(props.dataPoints); // Redraw chart based on new size
+        createHeatMap(props.dataPoints); 
     }
 };
 
 const createHeatMap = (data) => {
     const countsByYearMonth = d3.rollups(data,
-        v => v.length, // This function counts the number of entries for each group
-        d => d.year, d => d.month) // Grouping by year then by month
+        v => v.length, 
+        d => d.year, d => d.month) 
         .map(([year, months]) => {
-            // Transform the sub-array of months into a map for easier access
             const monthCounts = new Map(months);
             return { year, months: monthCounts };
         })
-        .sort((a, b) => b.year - a.year) // Sort by year descending
-        .slice(0, 11); // Get the most recent ten years
+        .sort((a, b) => b.year - a.year) 
+        .slice(0, 11); 
 
     const years = countsByYearMonth.map(d => d.year);
     const margin = { top: 20, right: 20, bottom: 20, left: 50 },
@@ -93,40 +91,37 @@ const createHeatMap = (data) => {
     .domain([0, d3.max(countsByYearMonth, d => d3.max(d.months.values()))])
     .range([0, y.bandwidth() / 1.5]);
 
-    // Append the squares
     countsByYearMonth.forEach(yearEntry => {
         monthNames.forEach((month, index) => {
-            const count = yearEntry.months.get(index + 1) || 0; // Get the count for the month, default to 0
-            const size = sizeScale(count); // Calculate the size of the square
-            const xPosition = x(month) + x.bandwidth() / 2 - size / 2; // Center the square in the x scale band
-            const yPosition = y(yearEntry.year) + y.bandwidth() / 2 - size / 2; // Center the square in the y scale band
+            const count = yearEntry.months.get(index + 1) || 0; 
+            const size = sizeScale(count); 
+            const xPosition = x(month) + x.bandwidth() / 2 - size / 2; 
+            const yPosition = y(yearEntry.year) + y.bandwidth() / 2 - size / 2; 
 
             svg.value.append('rect')
                 .attr('x', xPosition)
                 .attr('y', yPosition)
                 .attr('width', size)
-                .attr('height', size) // The height is now the same as the width to form a square
+                .attr('height', size) 
                 .attr('fill', colorScale(count));
         });
     });
 
     const legendWidth = (width - margin.left - margin.right) / 2;
-    const legendHeight = 20; // Height of the legend bar
+    const legendHeight = 20; 
 
-    // Create a gradient for the legend's color range
     svg.value.append("defs")
         .append("linearGradient")
         .attr("id", "gradient")
         .selectAll("stop")
         .data(colorScale.range().map((color, i, range) => ({
-            offset: `${100 * i / (range.length - 1)}%`, // Position stops from 0% to 100%
+            offset: `${100 * i / (range.length - 1)}%`, 
             color: color
         })))
         .enter().append("stop")
         .attr("offset", d => d.offset)
         .attr("stop-color", d => d.color);
 
-    // Add the colored rectangle representing the legend
     const legend = svg.value.append("g")
         .attr("class", "legend")
         .attr("transform", `translate(${width + margin.left}, ${height - margin.top})`);
@@ -136,22 +131,19 @@ const createHeatMap = (data) => {
         .attr("height", legendHeight)
         .style("fill", "url(#gradient)");
 
-    // Add min and max text labels for the legend
     legend.append("text")
         .attr("x", 0)
-        .attr("y", legendHeight + 5) // Position below the legend bar
+        .attr("y", legendHeight + 5) 
         .attr("dy", "0.75em")
         .style("text-anchor", "middle")
-        // .text(d3.min(colorScale.domain())); 
         .text("0");
 
     legend.append("text")
         .attr("x", legendWidth)
-        .attr("y", legendHeight + 5) // Position below the legend bar
+        .attr("y", legendHeight + 5) 
         .attr("dy", "0.75em")
         .style("text-anchor", "middle")
-        // .text(d3.max(colorScale.domain()));
-        .text("6600Fires");
+        .text(d3.max(colorScale.domain()));
 };
 
 

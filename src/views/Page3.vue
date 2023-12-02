@@ -25,7 +25,6 @@
 </template>
   
 <script setup>
-// eslint-disable-next-line no-unused-vars
 import { ref, computed } from 'vue';
 import DataLoader from '@/components/DataLoader.vue';
 import Page3DensityMap from '@/components/Page3DensityMap.vue';
