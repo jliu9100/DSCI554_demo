@@ -3,14 +3,14 @@
     <div class="intro">
         <div class="modal">
             <h1>Wildfire in California</h1>
-            <el-button size="large" circle @click="handleIntro" class="introButton" :icon="Right"></el-button>
+            <el-button size="large" circle @click="handleIntro" class="introButton" :icon="Bottom"></el-button>
         </div>
     </div>
 </template>
   
 <script setup>
 import { useRouter } from 'vue-router';
-import { Right } from '@element-plus/icons-vue';
+import { Bottom } from '@element-plus/icons-vue';
 const router = useRouter();
 const handleIntro = () => {
     router.push('/Home');

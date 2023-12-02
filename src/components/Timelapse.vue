@@ -38,6 +38,7 @@ onMounted(async () => {
   const selector = '#timelapse-chart';
 
   function drawSmoke(selection, data, width, height, x, xSubYear, y, yProportion, r) {
+    // return
     selection.selectAll('circle').remove();
     selection.selectAll('circle')
       .data(data)
@@ -57,7 +58,7 @@ onMounted(async () => {
 
   d3.select(selector).selectAll('svg').remove();
   const divWidth = document.querySelector('#timelapse-chart').clientWidth;
-  const divHeight = 300;
+  const divHeight = 400;
   const margin = { top: 40, right: 80, bottom: 60, left: 150 },
     width = divWidth - margin.left - margin.right,
     height = divHeight - margin.top - margin.bottom;
@@ -139,7 +140,7 @@ onMounted(async () => {
   const maxRadius = r(Math.max(...circles));
   const legend = svg
     .append('g')
-    .style('transform', 'translate(1200px, 100px)')
+    .style('transform', 'translate(1000px, 80px)')
 
   legend
     .append('rect')
@@ -225,6 +226,7 @@ onMounted(async () => {
 
   const monthGroup = svg
     .append('foreignObject')
+    // .attr('transform', 'translate(-100px, 0px)')
     .attr('x', 0)
     .attr('y', 0)
     .attr('width', divWidth)
@@ -233,7 +235,7 @@ onMounted(async () => {
     .attr('class', 'month-container')
     .style('height', '50px')
     // fontsize
-    .style('font-size', '80px')
+    .style('font-size', '100px')
 
 
   function drawMonth(selector, monthIndex) {

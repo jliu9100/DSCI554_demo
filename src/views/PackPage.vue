@@ -1,6 +1,6 @@
 <!-- views/PackPage.vue -->
 <template>
-  <div>
+  <div class="wrp">
     <PackContainer />
   </div>
 </template>

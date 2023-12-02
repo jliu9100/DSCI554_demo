@@ -1,26 +1,26 @@
 <template>
   <div id="app" v-if="loaded">
 
-    <full-page ref="fullpage" id="fullpage">
-      <div class="section">
+    <full-page ref="fullpage" id="fullpage" :options="options">
+      <div class="section fp-auto-height-responsive">
         <IntroPage />
       </div>
-      <div class="section">
+      <div class="section fp-auto-height-responsive">
         <HomePage />
       </div>
-      <div class="section">
+      <div class="section fp-auto-height-responsive">
         <SubPage1 />
       </div>
-      <div class="section">
+      <div class="section fp-auto-height-responsive">
         <PackPage />
       </div>
-      <div class="section">
+      <div class="section fp-auto-height-responsive">
         <Page2 />
       </div>
-      <div class="section">
+      <div class="section fp-auto-height-responsive">
         <Page3 />
       </div>
-      <div class="section">
+      <div class="section fp-auto-height-responsive">
         <TimelapsePage />
       </div>
     </full-page>
@@ -46,6 +46,15 @@ import { useTimelapseDataStore } from "@/stores/timelapseData";
 import { usePackDataStore } from "@/stores/packData";
 import { useGeneralDataStore } from "@/stores/generalData";
 import { useCauseDataStore } from "@/stores/causeData";
+const options = ref({
+  scrollBar: true,
+  touchSensitivity: 1,
+  // menu: true,
+  navigation: true,
+  // scrollOverflow: false,
+  bigSectionsDestination: 'top',
+  // autoScrolling: false
+})
 
 const loaded = ref(false);
 const timelapseStore = useTimelapseDataStore();
@@ -68,5 +77,14 @@ watchEffect(() => {
 <style>
 .fp-watermark {
   opacity: 0%;
+}
+
+#fp-nav ul li a span,
+.fp-slidesNav ul li a span {
+    background: red !important;
+}
+
+.section{
+  height: 100vh !important;
 }
 </style>
